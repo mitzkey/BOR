@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Rankingi";
+}
+
+<div class="container">
+    <h2>Rankingi</h2>
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj ranking", "Create")
+        </p>
+    }
+
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <div class="row">
+                <div class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Title)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Author)
+                </div>
+                <div class="col-sm-2">
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-12">
+                    @Html.DisplayFor(modelItem => item.Text)
+                </div>
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Zarządzaj częściami", "Index", "RankingParts", new { RankingID = item.ArticleID }, null)
+            }
+        </div>
+        foreach (var innerItem in item.RelatedArticles)
+        {
+            <div class="myArticle">
+                <div class="row">
+                    <div class="col-sm-10">
+                        @Html.DisplayFor(modelItem => innerItem.Title)
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.ActionLink("Głosuj", "Vote", "RankingParts", new { id = innerItem.ArticleID, relatedArticle = item.ArticleID }, null)
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img class="img-responsive img-thumbnail" src="@innerItem.Images.First().MiniatureLink" alt="@innerItem.Images.First().Name" />
+                    </div>
+                    <div class="col-sm-9">
+                        @Html.DisplayFor(modelItem => innerItem.Text)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

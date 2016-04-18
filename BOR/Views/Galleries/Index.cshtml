@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Galeria";
+}
+<div class="row">
+    <img src="~/Content/Images/Branding/GALERIA.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+<div class="container main-menu">
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj album", "Create")
+        </p>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <div class="row">
+                <div class="col-sm-10 col-md-7 article-title">
+                    <a href="@Url.Action("Index", "Media", new {articleID = item.ArticleID})">
+                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                    </a>
+                </div>
+            </div>
+            <h5>@Html.DisplayFor(modelItem => item.DateAdded)</h5>
+            <p>@Html.DisplayFor(modelItem => item.Text)</p>
+            <ul class="row ul-gallery">
+                @for (int i = 0; i < item.Images.ToArray().Length && i < 4; i++ )
+                {
+                    <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="@Url.Action("Index", "Media", new {articleID = item.ArticleID})">
+                            <img class="img-thumbnail" src="@item.Images.ElementAt(i).MiniatureLink" alt="@item.Images.ElementAt(i).Name" />
+                        </a>
+                    </li>
+                }
+            </ul>
+            <br/>
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                <span>|</span>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                <span>|</span>
+            }
+            @Html.ActionLink("Przeglądaj >>", "Index", "Media", new { articleID = item.ArticleID }, null)
+        </div>
+    }
+
+</div>

@@ -1,0 +1,21 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Usuń reklamę";
+}
+
+<div class="container">
+<h2>Usuń reklamę</h2>
+
+<h3>Usunąć reklamę @Model.Title?</h3>
+    <hr />
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót", "Index")
+        </div>
+    }
+</div>

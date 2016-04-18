@@ -1,0 +1,32 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Nauka jazdy off road";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/USŁUGI.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+    <div class="myArticle">
+        <div class="row">
+            <div class="col-sm-10 col-md-7 article-title">
+                <h2>@Model.Title</h2>
+            </div>
+        </div>
+        <img class="img-responsive img-thumbnail img-article" src="@Model.Images.FirstOrDefault().MiniatureLink" alt="@Model.Images.FirstOrDefault().Name" />
+        @Model.Text
+        <br />
+        @Html.DisplayFor(m => Model.Www)
+    </div>
+
+    <p>
+        @if (Request.IsAuthenticated)
+        {
+            <text>@Html.ActionLink("Edytuj", "EditDrivingCourse", new { id = Model.ArticleID })</text>;
+            <text>|</text>;
+        }
+        @Html.ActionLink("Powrót", "Main")
+    </p>
+</div>

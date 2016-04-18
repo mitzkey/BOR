@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Warsztaty";
+}
+
+<div class="container">
+    <div class="workshops-main-map">
+        <h2>Wybierz województwo</h2>
+
+        <img id="wojewodztwa" class="img-responsive" src="~/Content/Images/Common/wojewodztwa_440x381.png" alt="Województwa" usemap="#wojewodztwaMap" />
+        <map name="wojewodztwaMap">
+            <area onmouseover="dolnoslaskie()" onmouseout="dolnoslaskieUndo()" shape="poly" coords="34,222,43,217,49,219,55,214,62,217,68,211,74,211,74,204,81,199,94,204,97,200,105,200,108,204,108,208,113,209,113,212,121,213,122,216,128,213,132,213,138,209,149,214,147,219,147,223,150,223,153,223,157,227,156,236,147,237,147,242,138,253,137,258,132,259,131,267,126,269,124,270,124,274,119,274,118,277,116,278,124,286,122,289,114,292,110,297,103,297,99,292,99,288,96,288,96,284,92,284,92,280,87,280,85,277,85,273,89,271,94,271,95,266,92,265,89,264,85,266,82,264,80,265,79,267,77,267,75,262,71,264,68,261,68,260,63,260,61,257,48,255,46,251,44,250,44,244,39,244,35,243,35,251,29,251,23,249,26,243,30,239,34,233"
+                  alt="dolnośląskie" href="@Url.Action("Index", new { voivodships = "dolnośląskie" })" />
+        </map>
+    </div>
+    <div class="workshops-main-map-mini">
+        <h2>Szukaj warsztatów</h2>
+        <a href="@Url.Action("Index")">
+            <img class="img-responsive" src="~/Content/Images/Common/wojewodztwa_440x381.png" alt="Województwa" />
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function dolnoslaskie() {
+        wojewodztwa.src = "/Content/Images/Common/wojewodztwa_440x381_dolnoslaskie.png";
+    }
+    function dolnoslaskieUndo() {
+        wojewodztwa.src = "/Content/Images/Common/wojewodztwa_440x381.png";
+    }
+</script>
+

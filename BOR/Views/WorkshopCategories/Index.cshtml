@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Kategorie warsztatów";
+}
+
+<div class="container main-menu">
+    <h4>Kategorie warsztatów</h4>
+
+    <p>
+        @Html.ActionLink("Dodaj", "Create")
+    </p>
+
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-thumbnail"
+                         src="@(item.Images.Count() > 0 ? item.Images.First().Link : "")"
+                         alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                </div>
+                <div class="col-md-8">
+                    <h4>@Html.DisplayFor(i => item.Title)</h4>
+                    @Html.DisplayFor(i => item.Text)
+                    <p>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    @Html.ActionLink("Powrót", "Index", "Manage", null, null)
+</div>

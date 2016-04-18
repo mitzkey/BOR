@@ -1,0 +1,196 @@
+﻿@model BOR.ViewModels.ArticleMedia
+
+@{
+    ViewBag.Title = Model.Article.Title;
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/OFFROAD GIRLS.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<div class="container main-menu">
+    <div class="myArticle">
+        <div class="row">
+            <div class="col-sm-10 col-md-7 article-title">
+                <h2>@Html.DisplayFor(model => Model.Article.Title)</h2>
+            </div>
+        </div>
+        @if (Request.IsAuthenticated) {
+            if (Model.Media.Count() == 1 && Model.Article.Type != "Gallery" && Model.Article.Type != "OffRoadGirl"
+                && Model.Article.Type != "Article" && Model.Article.Type != "Service")
+            {
+                if (Model.Article.Type == "Workshop")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "Workshops", null, null);
+                }
+                else if (Model.Article.Type == "Event")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "Events", null, null);
+                }
+                else if (Model.Article.Type == "Part")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "Parts", null, null);
+                }
+                else if (Model.Article.Type == "RankingPart")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "RankingParts", new { RankingID = Model.Article.ArticleID })
+                }
+                else if (Model.Article.Type == "Ad")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "Ads", null, null);
+                }
+                else if (Model.Article.Type == "BottomAd")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "BottomAd", null, null);
+                }
+                else if (Model.Article.Type == "Shop")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "Shop", null, null);
+                }
+                else if (Model.Article.Type == "Category")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "Categories", null, null);
+                }
+                else if (Model.Article.Type == "Driving course")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "DrivingCourse", "Services", null, null);
+                }
+                else if (Model.Article.Type == "WorkshopCategory")
+                {
+                    <h4>Nie możesz dodać więcej obrazów</h4>
+                    @Html.ActionLink("Dalej", "Index", "WorkshopCategories", null, null);
+                }
+            }
+            else
+            {
+                <p>
+                    @Html.ActionLink("Dodaj obraz", "Create", new { articleID = Model.Article.ArticleID })
+                </p>
+            }
+        }
+
+
+        <div id="links">
+            <div class="menu row-gallery">
+                @foreach (var item in Model.Media)
+                {
+                    <div class="menu-category-gallery list-group">
+                        <a href="@item.Link" title="@item.Name" data-gallery>
+                            <img class="img-thumbnail img-responsive" src="@item.MiniatureLink" alt="@item.Name" />
+
+                        </a>
+                                <div class="photo-description">@item.Name</div>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    @Html.ActionLink("Usuń", "Delete", new { id = item.MediumID })
+                                    <span>|</span>
+                                    @Html.ActionLink("Edytuj", "Edit", new { id = item.MediumID })
+                                }
+                                @if (Model.Article.Type == "OffRoadGirl")
+                                {
+                                    if (Request.Cookies["DidVote"] == null)
+                                    {
+                                        <span> </span>
+                                        @Html.ActionLink("Głosuj", "Vote", new { id = item.MediumID });
+                                    }
+                                }
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <hr/>
+        <p>
+            @{
+    if (Model.Article.Type == "Gallery")
+                {
+                    @Html.ActionLink("Wszystkie albumy", "Index", "Galleries")
+                }
+                else if (Model.Article.Type == "OffRoadGirl")
+                {
+                    @Html.ActionLink("Wszystkie albumy", "Index", "OffRoadGirls")
+                }
+            }
+        </p>
+    </div>
+    @if (Request.IsAuthenticated) {
+        if (Model.Article.Type == "BottomAd")
+        {
+            @Html.ActionLink("Zakończ", "Index", "Manage", null, null);
+        }
+        else if (Model.Article.Type == "Shop")
+        {
+            @Html.ActionLink("Zakończ", "Index", "Shop", null, null);
+        }
+        else if (Model.Article.Type == "Category" || Model.Article.Type == "Subcategory")
+        {
+            @Html.ActionLink("Zakończ", "Index", "Categories", null, null);
+        }
+        else if (Model.Article.Type == "Gallery")
+        {
+            @Html.ActionLink("Zakończ", "Index", "Galleries", null, null);
+        }
+        else if (Model.Article.Type == "Driving course") {
+            @Html.ActionLink("Zakończ", "DrivingCourse", "Services", null, null);
+        }
+        else if (Model.Article.Type == "WorkshopCategory")
+        {
+            @Html.ActionLink("Zakończ", "Index", "WorkshopCategories", null, null);
+        }
+        else
+        {
+            @Html.ActionLink("Zakończ", "Index", Model.Article.Type + "s", null, null);
+        }
+    }
+</div>
+
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="~/Scripts/bootstrap-image-gallery.min.js"></script>

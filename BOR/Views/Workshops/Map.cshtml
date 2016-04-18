@@ -1,0 +1,90 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Mapa - " + Model.Title;
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/WARSZTATY.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+    <div class="myArticle">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>@Html.DisplayFor(model => model.Title)</h4>
+            </div>
+            <div class="col-md-6">
+                ul.@Html.DisplayFor(model => model.Street) @Html.DisplayFor(model => model.HouseNumber) @{
+                    if (Model.ApartmentNumber != null && Model.ApartmentNumber != "")
+                    {
+                        <text>/ @Html.DisplayFor(modelItem => Model.ApartmentNumber)</text>
+                    }
+                    <br/>
+                    if (Model.Zipcode != null && Model.Zipcode != "")
+                    {
+                        <text>@Html.DisplayFor(modelItem => Model.Zipcode), </text>
+                    }
+                }
+                @Html.DisplayFor(modelItem => Model.City), @Html.DisplayFor(modelItem => Model.Voivodship.Name)
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                @* google maps*@
+                <div id="map-canvas"></div>
+                @* end of google maps *@
+            </div>
+        </div>
+    </div>
+    <p>
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink("Edytuj", "Edit", new { id = Model.ArticleID })
+            <span>|</span>
+        }
+        @Html.ActionLink("Powrót", "Index")
+    </p>
+</div>
+    
+@* google maps *@
+<script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb7yEklMf8WzBusF4pykg_j-KmegWgMoI">
+    </script>
+    <script type="text/javascript">
+    @{
+        string googleMapsAddress = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+            Model.Street + "+" + Model.HouseNumber + ",+" + Model.City +
+            "&key=AIzaSyDICsovbKs7qwN0r6rqaQTW0-vksuLUaKw";
+        var json = new WebClient().DownloadString(googleMapsAddress);
+        dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+        string lat = @data.results[0].geometry.location.lat;
+        string lng = @data.results[0].geometry.location.lng;
+        string modelTitle = !String.IsNullOrEmpty(Model.Title) ? Model.Title : "";
+        string title = modelTitle.Replace("'", " ");
+        <text>
+    function initialize() {
+        var myLatLng = new google.maps.LatLng(@lat, @lng);
+
+        var mapOptions = {
+            center: myLatLng,
+            zoom: 15
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+    
+        var markerTitle ="@title";
+        var marker = new google.maps.Marker({
+            title: markerTitle,
+            position: myLatLng,
+            map: map
+        });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        </text>
+    }
+    </script>
+
+@* end of google maps *@

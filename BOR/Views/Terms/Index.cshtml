@@ -1,0 +1,18 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Regulamin";
+}
+<div class="container main-menu">
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model != null ? Model.ArticleID : (int?) null });
+    }
+    @if (Model != null)
+    {
+        <div class="myArticle">
+            @Html.Raw(Model.Text)
+        </div>
+    }
+    @Html.ActionLink("Powrót na stronę główną", "Index", "Home", null, null)
+</div>

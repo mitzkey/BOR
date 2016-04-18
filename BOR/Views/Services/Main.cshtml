@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Oferta";
+}
+<div class="row">
+    <img src="~/Content/Images/Branding/USŁUGI.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+    <div class="row">
+        <div class="row">
+            <div class="col-sm-6 col-bottom">
+                <div class="col-index">
+                    <a class="img-link" href="@Url.Action("Index", "Services", null)">
+                        <img class="img-responsive img-main-menu" src="~/Content/Images/eventy_main.jpg" alt="Eventy" />
+                    </a>
+                    <a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "Services", null)">EVENTY</a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-bottom">
+                <div class="col-index">
+                    <a class="img-link" href="@Url.Action("DrivingCourse", "Services", null)">
+                        <img class="img-responsive img-main-menu" src="~/Content/Images/naukaJazdyMain.jpg" alt="Eventy" />
+                    </a>
+                    <a class="btn btn-default btn-main-menu" href="@Url.Action("DrivingCourse", "Services", null)">OFF ROAD NAUKA JAZDY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Usuń - " + Model.Title;
+}
+<div class="container">
+
+    <h3>Usunąć galerię @Model.Title?</h3>
+
+    <div class="myArticle">
+        <h3>@Html.DisplayFor(modelItem => modelItem.Title)</h3>
+        <h5>@Html.DisplayFor(modelItem => modelItem.DateAdded)</h5>
+        <p>@Html.DisplayFor(modelItem => modelItem.Text)</p>
+        <ul class="row ul-gallery">
+            @for (int i = 0; i < Model.Images.ToArray().Length && i < 3; i++)
+            {
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                    <img class="img-thumbnail" src="@Model.Images.ToArray()[i].Link" alt="@Model.Images.ToArray()[i].Name" />
+                </li>
+            }
+        </ul>
+        <br />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</div>

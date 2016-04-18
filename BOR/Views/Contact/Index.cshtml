@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Kontakty";
+}
+
+<div class="container main-menu">
+    <p>
+        @Html.ActionLink("Dodaj", "Create")
+    </p>
+
+
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <h4>@Html.DisplayFor(i => item.Title)</h4>
+            @Html.DisplayFor(i => item.Street)
+            @Html.DisplayFor(i => item.HouseNumber)
+            <br />
+            @Html.DisplayFor(i => item.Zipcode)
+            @Html.DisplayFor(i => item.City)
+            <br />
+            @Html.DisplayFor(i => item.Www)
+            <br />
+            @Html.DisplayFor(i => item.Email)
+            <br />
+            @Html.DisplayFor(i => item.PhoneNo)
+            <hr />
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }) |
+            @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+            <hr />
+        </div>
+    }
+
+</div>

@@ -1,0 +1,27 @@
+﻿@model BOR.Models.Medium
+
+@{
+    ViewBag.Title = "Usuń zdjęcie";
+}
+
+<div class="container">
+    <h3>Usunąć zdjęcie?</h3>
+    <hr />
+    <div class="container">
+        <p>
+            <img class="img-thumbnail img-delete" src="@Model.Link" alt="@Model.Name" />
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Name)
+        </p>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</div>

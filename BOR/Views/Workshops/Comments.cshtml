@@ -1,0 +1,124 @@
+﻿@model BOR.ViewModels.WorkshopComment
+
+@{
+    ViewBag.Title = "Opinie";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/WARSZTATY.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu container-transparent">
+    <div class="myArticle workshop-article">
+        <div class="row">
+            <div class="col-sm-3">
+                <a class="img-link" href="@Model.Workshop.Www">
+                    <img class="img-thumbnail img-link workshop-logo"
+                         src="@(Model.Workshop.Images.Count() > 0 ? Model.Workshop.Images.First().Link : "")"
+                         alt="@(Model.Workshop.Images.Count() > 0 ? Model.Workshop.Images.First().Name : "")" />
+                </a>
+            </div>
+            <div class="col-sm-9">
+                <h1>@Html.DisplayFor(modelItem => Model.Workshop.Title)</h1>
+                <span class="workshop-link">@Html.DisplayFor(modelItem => Model.Workshop.Www)</span>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="workshop-description">
+                            @Html.DisplayFor(modelItem => Model.Workshop.Text)
+                        </p>
+                    </div>
+                    <div class="col-sm-4 workshop-address">
+                        <h3>ADRES:</h3>
+                        ul.@Html.DisplayFor(modelItem => Model.Workshop.Street) @Html.DisplayFor(modelItem => Model.Workshop.HouseNumber)
+                        @{
+                            if (Model.Workshop.ApartmentNumber != null && Model.Workshop.ApartmentNumber != "")
+                            {
+                                <text>/ @Html.DisplayFor(modelItem => Model.Workshop.ApartmentNumber)</text>
+                            }
+                        }
+                        <br />
+                        @{
+                            if (Model.Workshop.Zipcode != null && Model.Workshop.Zipcode != "")
+                            {
+                                <text>@Html.DisplayFor(modelItem => Model.Workshop.Zipcode), </text>
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => Model.Workshop.City), @Html.DisplayFor(modelItem => Model.Workshop.Voivodship.Name)
+                        <br />
+                        <span class="workshop-email">@Html.DisplayFor(modelItem => Model.Workshop.Email)</span>
+                        <br />
+                        <a class="img-link" href="@Url.Action("Map", "Workshops", new { id = Model.Workshop.ArticleID })">
+                            <img class="" src="~/Content/Images/Common/Google-Maps-icon.png" alt="google-maps-icon" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @{
+        foreach (var item in Model.Workshop.Comments)
+        {
+            <div class="myArticle workshop-comment">
+                <div class="row">
+                    <div class="col-xs-10 col-sm-6">
+                        @Html.DisplayFor(i => item.Author)
+                    </div>
+                    <div class="col-xs-10 col-sm-6">
+                        @Html.DisplayFor(i => item.DateAdded)
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        @Html.DisplayFor(i => item.Text)
+                    </div>
+                </div>
+                @if (Request.IsAuthenticated)
+                {
+                    <p>
+                        @Html.ActionLink("Usuń", "DeleteComment", "Workshops", new { commentID = item.ArticleID, workshopID = Model.Workshop.ArticleID }, null)
+                    </p>
+                }
+            </div>
+        }
+    }
+
+    <div class="myArticle workshop-comment">
+        <h4>Twoja opinia:</h4>
+        @using (Html.BeginForm("CreateComment", "Workshops", new { workshopID = Model.Workshop.ArticleID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.Comment.Text, "Treść", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(item => item.Comment.Text, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(item => item.Comment.Text, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.Comment.Author, "Autor", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(item => item.Comment.Author, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(item => item.Comment.Author, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Dodaj opinię" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

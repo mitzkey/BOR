@@ -1,0 +1,32 @@
+﻿@model BOR.ViewModels.RankingPartsVotingResults
+@{
+    ViewBag.Title = "Wyniki głosowania";
+}
+
+<div class="container">
+    <h2>Wyniki głosowania</h2>
+    <hr />
+    <div class="myArticle">
+        <ul class="row ul-gallery">
+        @{
+                int cnt = 0;
+
+                foreach (var item in Model.Results)
+                {
+                    if (cnt++ % 4 == 0)
+                    {
+                        @:</ul><ul class="row ul-gallery">
+                    }
+                @:<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <img class="img-thumbnail" src="@item.Key.Images.First().MiniatureLink" alt="@item.Key.Images.First().Name" />
+                    <p>
+                        @item.Key.Title |
+                        Głosy: @item.Value
+                    </p>
+                @:</li>
+            }
+            @:</ul>
+        }
+        @Html.ActionLink("Resetuj głosowanie", "VotingReset", "Manage", new { type = "RankingPart" }, null)
+    </div>
+</div>

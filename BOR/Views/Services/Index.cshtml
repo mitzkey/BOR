@@ -1,0 +1,40 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Eventy";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/USŁUGI.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj", "Create")
+        </p>
+    }
+
+    <div class="row row-main row-same-height">
+        <div class="row-same-height">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4 col-sm-height col-bottom">
+                    <div class="col-index">
+                        <a class="img-link" href="@Url.Action("Details", "Services", new { id = item.ArticleID })">
+                            <img class="img-responsive img-main-menu" src="@item.Images.FirstOrDefault().MiniatureLink" alt="@item.Images.FirstOrDefault().Name" />
+                        </a>
+                        <a class="btn btn-default btn-main-menu" href="@Url.Action("Details", "Services", new { id = item.ArticleID })">@item.Title</a>
+                    </div>
+                    @if (Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                        <span>|</span>
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

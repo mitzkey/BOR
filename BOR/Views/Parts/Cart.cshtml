@@ -1,0 +1,103 @@
+﻿@model BOR.ViewModels.Cart
+@{
+    ViewBag.Title = "Koszyk";
+}
+<div class="row">
+    <img src="~/Content/Images/Branding/SKLEP.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+<div class="container main-menu">
+    <div class="myArticle">
+        <h2>Twój koszyk</h2>
+        @if (ViewBag.orderSent != null)
+        {
+            <h3>@ViewBag.orderSent</h3>
+        }
+        else
+        {
+            <a class="btn btn-default" href="@Url.Action("Cart", new { clear = true })">Wyszyść koszyk</a>
+        }
+        <div class="row cart-header">
+            <div class="col-sm-6">
+                <h5>Nazwa artykułu</h5>
+            </div>
+            <div class="col-sm-2">
+                <h5>Cena</h5>
+            </div>
+            <div class="col-sm-2">
+                <h5>Ilość</h5>
+            </div>
+            <div class="col-sm-2">
+                <h5>Cena x ilość</h5>
+            </div>
+        </div>
+        <hr class="hr-cart" />
+        @for (int i = 0; i < Model.articles.Count; i++)
+        {
+            <div class="row">
+                <div class="col-xs-6">
+                    @Model.articles.ElementAt(i).Title
+                </div>
+                <div class="col-xs-2">
+                    @Model.articles.ElementAt(i).Longitude zł
+                </div>
+                <div class="col-xs-2">
+                    @Model.amounts.ElementAt(i) szt.
+                </div>
+                <div class="col-xs-2">
+                    @Model.sums.ElementAt(i) zł
+                </div>
+            </div>
+        }
+        <hr class="hr-cart" />
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-6 col-md-2 col-md-offset-10">
+                <h4>Suma: @Model.sum zł</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-form">
+        <h3>Złóż zamówienie</h3>
+        @using (Html.BeginForm("Order", "Parts", null, FormMethod.Post, null))
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.Label("Imię, nazwisko")
+                    <br />
+                    <input type="text" name="name" />
+                </div>
+                <div class="col-sm-4">
+                    @Html.Label("Email")
+                    <br />
+                    <input type="email" name="email" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    @Html.Label("Adres")
+                    <br />
+                    <textarea class="form-control" name="address"></textarea>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        @Html.Label("Telefon")
+                        <br />
+                        <textarea class="form-control" name="phone"></textarea>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    @Html.Label("Uwagi")
+                    <br />
+                    <textarea class="form-control multi-line order" name="text"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="submit" value="Wyślij zamówienie" class="btn btn-default btn-order" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

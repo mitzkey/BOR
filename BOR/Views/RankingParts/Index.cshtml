@@ -1,0 +1,34 @@
+﻿@model BOR.ViewModels.RankingParts
+
+@{
+    ViewBag.Title = "Części rankingu " + Model.Ranking.Title;
+}
+
+<div class="container">
+    <h2>Części rankingu @Model.Ranking.Title</h2>
+
+    <p>
+        @Html.ActionLink("Dodaj", "Create", new { RankingID = Model.Ranking.ArticleID })
+    </p>
+
+    @foreach (var item in Model.Parts)
+    {
+        <div class="myArticle">
+            <div class="row">
+                <div class="col-sm-12">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <img class="img-responsive img-thumbnail" src="@item.Images.First().MiniatureLink"
+                         alt="@item.Images.First().Name" />
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(modelItem => item.Text)
+                </div>
+            </div>
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+        </div>
+    }
+</div>

@@ -1,0 +1,799 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B3A2FDE5-BF51-416E-8D75-F98A3B81D252}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BOR</RootNamespace>
+    <AssemblyName>BOR</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="BORcontext-Deployment" Order="1" Enabled="True" xmlns="">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDb%29\v11.0%3bAttachDbFilename=|DataDirectory|\BOR2%3bInitial Catalog=BOR2%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\BORcontext-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="DefaultConnection-Deployment" Order="2" xmlns="">
+          <Destination Path="Data Source=mssql5.webio.pl ,2401%3bDatabase=mitzkey_BORdefaultConnection%3bUid=mitzkey_mitzkey%3bPassword=1!Salomon%3b" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDb%29\v11.0%3bAttachDbFilename=|DataDirectory|\aspnet-BOR-20150312080548.mdf%3bInitial Catalog=aspnet-BOR-20150312080548%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\DefaultConnection-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="BORcontext-Deployment" Order="1" Enabled="True">
+          <Destination Path="Data Source=.\SQLExpress%3bInitial Catalog=aspnet-BOR%3bIntegrated Security=True" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDb%29\v11.0%3bAttachDbFilename=|DataDirectory|\BOR2%3bInitial Catalog=BOR2%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\BORcontext-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="DefaultConnection-Deployment" Order="2" Enabled="False">
+          <Destination Path="" />
+          <Object Type="DbFullSql" Enabled="False">
+            <PreSource Path="Data Source=%28LocalDb%29\v11.0%3bAttachDbFilename=|DataDirectory|\aspnet-BOR-20150312080548.mdf%3bInitial Catalog=aspnet-BOR-20150312080548%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\DefaultConnection-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+    <PublishDatabases>false</PublishDatabases>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=__MvcPagesVersion__, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdsController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\BottomAdController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ClicksController.cs" />
+    <Compile Include="Controllers\CommonMoviesController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\GalleriesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\OffRoadGirlsController.cs" />
+    <Compile Include="Controllers\ParentController.cs" />
+    <Compile Include="Controllers\PartsController.cs" />
+    <Compile Include="Controllers\RankingPartsController.cs" />
+    <Compile Include="Controllers\RankingsController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\TermsController.cs" />
+    <Compile Include="Controllers\WorkshopCategoriesController.cs" />
+    <Compile Include="Controllers\WorkshopsController.cs" />
+    <Compile Include="DAL\BORcontext.cs" />
+    <Compile Include="DAL\BORinitializer.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Censor.cs" />
+    <Compile Include="Migrations\201504060818485_Initial.cs" />
+    <Compile Include="Migrations\201504060818485_Initial.Designer.cs">
+      <DependentUpon>201504060818485_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504141715277_14042015MediumCorrections.cs" />
+    <Compile Include="Migrations\201504141715277_14042015MediumCorrections.Designer.cs">
+      <DependentUpon>201504141715277_14042015MediumCorrections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504141750494_AspectRatioCorrection.cs" />
+    <Compile Include="Migrations\201504141750494_AspectRatioCorrection.Designer.cs">
+      <DependentUpon>201504141750494_AspectRatioCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504141850244_MediumIDasIntCorrection.cs" />
+    <Compile Include="Migrations\201504141850244_MediumIDasIntCorrection.Designer.cs">
+      <DependentUpon>201504141850244_MediumIDasIntCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504141931047_ArticleIDtoMediumAdded.cs" />
+    <Compile Include="Migrations\201504141931047_ArticleIDtoMediumAdded.Designer.cs">
+      <DependentUpon>201504141931047_ArticleIDtoMediumAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504291530405_ArticleAdressAdded.cs" />
+    <Compile Include="Migrations\201504291530405_ArticleAdressAdded.Designer.cs">
+      <DependentUpon>201504291530405_ArticleAdressAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505010723444_CoordinatesDoubleNullable.cs" />
+    <Compile Include="Migrations\201505010723444_CoordinatesDoubleNullable.Designer.cs">
+      <DependentUpon>201505010723444_CoordinatesDoubleNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505011525116_ImageLinkRequired.cs" />
+    <Compile Include="Migrations\201505011525116_ImageLinkRequired.Designer.cs">
+      <DependentUpon>201505011525116_ImageLinkRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505011556388_MediumModelLinkNotRequired.cs" />
+    <Compile Include="Migrations\201505011556388_MediumModelLinkNotRequired.Designer.cs">
+      <DependentUpon>201505011556388_MediumModelLinkNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505020601133_WwwAndEmailAddedToArticle.cs" />
+    <Compile Include="Migrations\201505020601133_WwwAndEmailAddedToArticle.Designer.cs">
+      <DependentUpon>201505020601133_WwwAndEmailAddedToArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505020611172_ZipcodeAddedToArticle.cs" />
+    <Compile Include="Migrations\201505020611172_ZipcodeAddedToArticle.Designer.cs">
+      <DependentUpon>201505020611172_ZipcodeAddedToArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505031046479_StartStopPhoneAddedToArticle.cs" />
+    <Compile Include="Migrations\201505031046479_StartStopPhoneAddedToArticle.Designer.cs">
+      <DependentUpon>201505031046479_StartStopPhoneAddedToArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505031049223_StartStopNullableInArticle.cs" />
+    <Compile Include="Migrations\201505031049223_StartStopNullableInArticle.Designer.cs">
+      <DependentUpon>201505031049223_StartStopNullableInArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505031519595_StartEndTimesAddedToArticle.cs" />
+    <Compile Include="Migrations\201505031519595_StartEndTimesAddedToArticle.Designer.cs">
+      <DependentUpon>201505031519595_StartEndTimesAddedToArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505031603389_StartEndDatesInArticleDeleted.cs" />
+    <Compile Include="Migrations\201505031603389_StartEndDatesInArticleDeleted.Designer.cs">
+      <DependentUpon>201505031603389_StartEndDatesInArticleDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505031604155_StartEndDatesAddedToArticles.cs" />
+    <Compile Include="Migrations\201505031604155_StartEndDatesAddedToArticles.Designer.cs">
+      <DependentUpon>201505031604155_StartEndDatesAddedToArticles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505031655401_AnotherDatetimeArticleUpdate.cs" />
+    <Compile Include="Migrations\201505031655401_AnotherDatetimeArticleUpdate.Designer.cs">
+      <DependentUpon>201505031655401_AnotherDatetimeArticleUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505100627429_VoivodshipObjectAdded.cs" />
+    <Compile Include="Migrations\201505100627429_VoivodshipObjectAdded.Designer.cs">
+      <DependentUpon>201505100627429_VoivodshipObjectAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505111520148_MiniatureLinkToMediumAdded.cs" />
+    <Compile Include="Migrations\201505111520148_MiniatureLinkToMediumAdded.Designer.cs">
+      <DependentUpon>201505111520148_MiniatureLinkToMediumAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505121835471_VotesAdded.cs" />
+    <Compile Include="Migrations\201505121835471_VotesAdded.Designer.cs">
+      <DependentUpon>201505121835471_VotesAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505121927367_VoteCorrection.cs" />
+    <Compile Include="Migrations\201505121927367_VoteCorrection.Designer.cs">
+      <DependentUpon>201505121927367_VoteCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505171423488_CategoryToArticleAdded.cs" />
+    <Compile Include="Migrations\201505171423488_CategoryToArticleAdded.Designer.cs">
+      <DependentUpon>201505171423488_CategoryToArticleAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505171448403_CategoryAsModelAdded.cs" />
+    <Compile Include="Migrations\201505171448403_CategoryAsModelAdded.Designer.cs">
+      <DependentUpon>201505171448403_CategoryAsModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505171729394_DateAddedAsDateTime2.cs" />
+    <Compile Include="Migrations\201505171729394_DateAddedAsDateTime2.Designer.cs">
+      <DependentUpon>201505171729394_DateAddedAsDateTime2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505191624595_VotesOrganised.cs" />
+    <Compile Include="Migrations\201505191624595_VotesOrganised.Designer.cs">
+      <DependentUpon>201505191624595_VotesOrganised.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505191935288_MediumIDAndArticleIDNotNullInVote.cs" />
+    <Compile Include="Migrations\201505191935288_MediumIDAndArticleIDNotNullInVote.Designer.cs">
+      <DependentUpon>201505191935288_MediumIDAndArticleIDNotNullInVote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505231550436_ClicksAdded.cs" />
+    <Compile Include="Migrations\201505231550436_ClicksAdded.Designer.cs">
+      <DependentUpon>201505231550436_ClicksAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506192033191_Remote.cs" />
+    <Compile Include="Migrations\201506192033191_Remote.Designer.cs">
+      <DependentUpon>201506192033191_Remote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\Click.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Medium.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Voivodship.cs" />
+    <Compile Include="Models\Vote.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ArticleMedia.cs" />
+    <Compile Include="ViewModels\Cart.cs" />
+    <Compile Include="ViewModels\GalleryMainView.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\RankingParts.cs" />
+    <Compile Include="ViewModels\RankingPartsVotingResults.cs" />
+    <Compile Include="ViewModels\ShopView.cs" />
+    <Compile Include="ViewModels\MediaVotingResults.cs" />
+    <Compile Include="ViewModels\MediumData.cs" />
+    <Compile Include="ViewModels\WorkshopComment.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\datadummy.txt" />
+    <Content Include="Content\bootstrap-image-gallery.css" />
+    <Content Include="Content\bootstrap-image-gallery.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\demo.css" />
+    <Content Include="Content\Images\Branding\ARTYKUŁY.jpg" />
+    <Content Include="Content\Images\Branding\DOMEK.jpg" />
+    <Content Include="Content\Images\Branding\GALERIA.jpg" />
+    <Content Include="Content\Images\Branding\KALENDARZ IMPREZ.jpg" />
+    <Content Include="Content\Images\Branding\OFFROAD GIRLS.jpg" />
+    <Content Include="Content\Images\Branding\SKLEP.jpg" />
+    <Content Include="Content\Images\Branding\USŁUGI.jpg" />
+    <Content Include="Content\Images\Branding\WARSZTATY.jpg" />
+    <Content Include="Content\Images\Common\Ads\audi_150x150.jpg" />
+    <Content Include="Content\Images\Common\Ads\batman_150x150.jpg" />
+    <Content Include="Content\Images\Common\Ads\bmw_150x150.jpeg" />
+    <Content Include="Content\Images\Common\Ads\bvb_150x150.png" />
+    <Content Include="Content\Images\Common\Ads\morris-center-logo.jpg" />
+    <Content Include="Content\Images\Common\Ads\nba_150x150.jpg" />
+    <Content Include="Content\Images\Common\Ads\nin_150x150.jpg" />
+    <Content Include="Content\Images\Common\Ads\Playboy_150x150.jpg" />
+    <Content Include="Content\Images\Common\Ads\Volkswagen_150x150.png" />
+    <Content Include="Content\Images\Common\Google-Maps-icon.png" />
+    <Content Include="Content\Images\Common\loading.gif" />
+    <Content Include="Content\Images\Common\logo1.png" />
+    <Content Include="Content\Images\Common\logo_example_2.jpg" />
+    <Content Include="Content\Images\Common\logo_ok.png" />
+    <Content Include="Content\Images\Common\okrągłe przezroczyste.png" />
+    <Content Include="Content\Images\Common\sor_logo.jpg" />
+    <Content Include="Content\Images\Common\wojewodztwa_440x381.png" />
+    <Content Include="Content\Images\Common\wojewodztwa_440x381_dolnoslaskie.png" />
+    <Content Include="Content\Images\Common\youtube3.svg" />
+    <Content Include="Content\Images\eventy_main.jpg" />
+    <Content Include="Content\Images\galleryMain.jpg" />
+    <Content Include="Content\Images\galleryMain2.jpg" />
+    <Content Include="Content\Images\Index\article_ex.jpg" />
+    <Content Include="Content\Images\Index\artykuły 702x440.jpg" />
+    <Content Include="Content\Images\Index\mapka warsztatów.jpg" />
+    <Content Include="Content\Images\Index\mapka warsztatów.png" />
+    <Content Include="Content\Images\Index\mapka warsztatów2.jpg" />
+    <Content Include="Content\Images\Index\mapka warsztatów2.png" />
+    <Content Include="Content\Images\Index\off_road_girls.jpg" />
+    <Content Include="Content\Images\Index\rt7.png" />
+    <Content Include="Content\Images\Index\wojewodztwa.png" />
+    <Content Include="Content\Images\naukaJazdyMain.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7086.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7089.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7100.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7150.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7152.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7218.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7219.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_7344.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_8950.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\DSC_8952.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\_JAC2119.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\_JAC2173.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\_JAC2255.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\_JAC2274.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\BRANDING 2592 x 650\na stronę\_JAC2501.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\STRONA GŁÓWNA 700 x 440\NA STRONĘ\DSC_9253.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\STRONA GŁÓWNA 700 x 440\NA STRONĘ\_JAC2082.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\STRONA GŁÓWNA 700 x 440\NA STRONĘ\_JAC3088.jpg" />
+    <Content Include="Content\Images\POSTPRODUKCJA\STRONA GŁÓWNA 700 x 440\NA STRONĘ\_JAC3089.jpg" />
+    <Content Include="Content\Images\Shop\felga.png" />
+    <Content Include="Content\Images\Shop\felga2.png" />
+    <Content Include="Content\Images\Shop\opona.png" />
+    <Content Include="Content\Images\Shop\opona2.png" />
+    <Content Include="Content\Images\Shop\oswietlenie.png" />
+    <Content Include="Content\Images\Shop\oswietlenie2.png" />
+    <Content Include="Content\Images\Shop\podnosniki i akcesoria.png" />
+    <Content Include="Content\Images\Shop\podnosniki i akcesoria2.png" />
+    <Content Include="Content\Images\Shop\polibusz.png" />
+    <Content Include="Content\Images\Shop\polibusz2.png" />
+    <Content Include="Content\Images\Shop\pozostale.png" />
+    <Content Include="Content\Images\Shop\pozostale2.png" />
+    <Content Include="Content\Images\Shop\snorkel.png" />
+    <Content Include="Content\Images\Shop\snorkel2.png" />
+    <Content Include="Content\Images\Shop\zawieszenie EFS.png" />
+    <Content Include="Content\Images\Shop\zawieszenie EPS.png" />
+    <Content Include="Content\Images\Shop\zawieszenie EPS2.png" />
+    <Content Include="Content\Images\Shop\zawieszenie IRONMAN.png" />
+    <Content Include="Content\Images\Shop\zawieszenie IRONMAN2.png" />
+    <Content Include="Content\Images\_JAC2503.jpg" />
+    <Content Include="Content\Images\_JAC3245.jpg" />
+    <Content Include="Content\MyStyles.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Content\Images\Common\facebook.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-image-gallery.js" />
+    <Content Include="Scripts\bootstrap-image-gallery.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\bornoffroad.pl - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\bornoffroad.pl - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\demo.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Test\index.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Articles\Create.cshtml" />
+    <Content Include="Views\Articles\Delete.cshtml" />
+    <Content Include="Views\Articles\Details.cshtml" />
+    <Content Include="Views\Articles\Edit.cshtml" />
+    <Content Include="Views\Articles\Index.cshtml" />
+    <Content Include="Views\Galleries\Create.cshtml" />
+    <Content Include="Views\Galleries\Delete.cshtml" />
+    <Content Include="Views\Galleries\Details.cshtml" />
+    <Content Include="Views\Galleries\Edit.cshtml" />
+    <Content Include="Views\Galleries\Index.cshtml" />
+    <Content Include="Views\OffRoadGirls\Create.cshtml" />
+    <Content Include="Views\OffRoadGirls\Delete.cshtml" />
+    <Content Include="Views\OffRoadGirls\Details.cshtml" />
+    <Content Include="Views\OffRoadGirls\Edit.cshtml" />
+    <Content Include="Views\OffRoadGirls\Index.cshtml" />
+    <Content Include="Views\Movies\Create.cshtml" />
+    <Content Include="Views\Movies\Delete.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\Edit.cshtml" />
+    <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Media\Create.cshtml" />
+    <Content Include="Views\Media\Delete.cshtml" />
+    <Content Include="Views\Media\Details.cshtml" />
+    <Content Include="Views\Media\Edit.cshtml" />
+    <Content Include="Views\Media\Index.cshtml" />
+    <Content Include="Views\Workshops\Create.cshtml" />
+    <Content Include="Views\Workshops\Delete.cshtml" />
+    <Content Include="Views\Workshops\Edit.cshtml" />
+    <Content Include="Views\Workshops\Index.cshtml" />
+    <Content Include="Views\Workshops\Map.cshtml" />
+    <Content Include="Views\Manage\MediaVotingResults.cshtml" />
+    <Content Include="Views\Workshops\Comments.cshtml" />
+    <Content Include="Views\Workshops\MainMap.cshtml" />
+    <Content Include="Views\Parts\Create.cshtml" />
+    <Content Include="Views\Parts\Delete.cshtml" />
+    <Content Include="Views\Parts\Details.cshtml" />
+    <Content Include="Views\Parts\Edit.cshtml" />
+    <Content Include="Views\Parts\Index.cshtml" />
+    <Content Include="Views\Shop\Create.cshtml" />
+    <Content Include="Views\Shop\Delete.cshtml" />
+    <Content Include="Views\Shop\Details.cshtml" />
+    <Content Include="Views\Shop\Edit.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\Map.cshtml" />
+    <Content Include="Views\Rankings\Create.cshtml" />
+    <Content Include="Views\Rankings\Delete.cshtml" />
+    <Content Include="Views\Rankings\Details.cshtml" />
+    <Content Include="Views\Rankings\Edit.cshtml" />
+    <Content Include="Views\Rankings\Index.cshtml" />
+    <Content Include="Views\RankingParts\Create.cshtml" />
+    <Content Include="Views\RankingParts\Delete.cshtml" />
+    <Content Include="Views\RankingParts\Details.cshtml" />
+    <Content Include="Views\RankingParts\Edit.cshtml" />
+    <Content Include="Views\RankingParts\Index.cshtml" />
+    <Content Include="Views\Manage\RankingPartsVotingResults.cshtml" />
+    <Content Include="Views\Galleries\Main.cshtml" />
+    <Content Include="Views\CommonMovies\Create.cshtml" />
+    <Content Include="Views\CommonMovies\Delete.cshtml" />
+    <Content Include="Views\CommonMovies\Details.cshtml" />
+    <Content Include="Views\CommonMovies\Edit.cshtml" />
+    <Content Include="Views\CommonMovies\Index.cshtml" />
+    <Content Include="Views\Ads\Create.cshtml" />
+    <Content Include="Views\Ads\Delete.cshtml" />
+    <Content Include="Views\Ads\Details.cshtml" />
+    <Content Include="Views\Ads\Edit.cshtml" />
+    <Content Include="Views\Ads\Index.cshtml" />
+    <Content Include="Views\BottomAd\Create.cshtml" />
+    <Content Include="Views\BottomAd\Delete.cshtml" />
+    <Content Include="Views\BottomAd\Details.cshtml" />
+    <Content Include="Views\BottomAd\Edit.cshtml" />
+    <Content Include="Views\BottomAd\Index.cshtml" />
+    <Content Include="Views\Clicks\Create.cshtml" />
+    <Content Include="Views\Clicks\Delete.cshtml" />
+    <Content Include="Views\Clicks\Details.cshtml" />
+    <Content Include="Views\Clicks\Edit.cshtml" />
+    <Content Include="Views\Clicks\Index.cshtml" />
+    <Content Include="Views\Services\Create.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
+    <Content Include="Views\Services\Details.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Contact\Delete.cshtml" />
+    <Content Include="Views\Contact\Details.cshtml" />
+    <Content Include="Views\Contact\Edit.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Services\Main.cshtml" />
+    <Content Include="Views\Services\DrivingCourse.cshtml" />
+    <Content Include="Views\Services\EditDrivingCourse.cshtml" />
+    <Content Include="Views\Parts\Cart.cshtml" />
+    <Content Include="Views\Parts\Order.cshtml" />
+    <Content Include="Views\Terms\Create.cshtml" />
+    <Content Include="Views\Terms\Delete.cshtml" />
+    <Content Include="Views\Terms\Details.cshtml" />
+    <Content Include="Views\Terms\Edit.cshtml" />
+    <Content Include="Views\Terms\Index.cshtml" />
+    <Content Include="Views\WorkshopCategories\Create.cshtml" />
+    <Content Include="Views\WorkshopCategories\Delete.cshtml" />
+    <Content Include="Views\WorkshopCategories\Edit.cshtml" />
+    <Content Include="Views\WorkshopCategories\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Elmah\" />
+    <Folder Include="Images\" />
+    <Folder Include="Views\Parent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504060818485_Initial.resx">
+      <DependentUpon>201504060818485_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504141715277_14042015MediumCorrections.resx">
+      <DependentUpon>201504141715277_14042015MediumCorrections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504141750494_AspectRatioCorrection.resx">
+      <DependentUpon>201504141750494_AspectRatioCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504141850244_MediumIDasIntCorrection.resx">
+      <DependentUpon>201504141850244_MediumIDasIntCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504141931047_ArticleIDtoMediumAdded.resx">
+      <DependentUpon>201504141931047_ArticleIDtoMediumAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504291530405_ArticleAdressAdded.resx">
+      <DependentUpon>201504291530405_ArticleAdressAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505010723444_CoordinatesDoubleNullable.resx">
+      <DependentUpon>201505010723444_CoordinatesDoubleNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505011525116_ImageLinkRequired.resx">
+      <DependentUpon>201505011525116_ImageLinkRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505011556388_MediumModelLinkNotRequired.resx">
+      <DependentUpon>201505011556388_MediumModelLinkNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505020601133_WwwAndEmailAddedToArticle.resx">
+      <DependentUpon>201505020601133_WwwAndEmailAddedToArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505020611172_ZipcodeAddedToArticle.resx">
+      <DependentUpon>201505020611172_ZipcodeAddedToArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505031046479_StartStopPhoneAddedToArticle.resx">
+      <DependentUpon>201505031046479_StartStopPhoneAddedToArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505031049223_StartStopNullableInArticle.resx">
+      <DependentUpon>201505031049223_StartStopNullableInArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505031519595_StartEndTimesAddedToArticle.resx">
+      <DependentUpon>201505031519595_StartEndTimesAddedToArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505031603389_StartEndDatesInArticleDeleted.resx">
+      <DependentUpon>201505031603389_StartEndDatesInArticleDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505031604155_StartEndDatesAddedToArticles.resx">
+      <DependentUpon>201505031604155_StartEndDatesAddedToArticles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505031655401_AnotherDatetimeArticleUpdate.resx">
+      <DependentUpon>201505031655401_AnotherDatetimeArticleUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100627429_VoivodshipObjectAdded.resx">
+      <DependentUpon>201505100627429_VoivodshipObjectAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505111520148_MiniatureLinkToMediumAdded.resx">
+      <DependentUpon>201505111520148_MiniatureLinkToMediumAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505121835471_VotesAdded.resx">
+      <DependentUpon>201505121835471_VotesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505121927367_VoteCorrection.resx">
+      <DependentUpon>201505121927367_VoteCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505171423488_CategoryToArticleAdded.resx">
+      <DependentUpon>201505171423488_CategoryToArticleAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505171448403_CategoryAsModelAdded.resx">
+      <DependentUpon>201505171448403_CategoryAsModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505171729394_DateAddedAsDateTime2.resx">
+      <DependentUpon>201505171729394_DateAddedAsDateTime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505191624595_VotesOrganised.resx">
+      <DependentUpon>201505191624595_VotesOrganised.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505191935288_MediumIDAndArticleIDNotNullInVote.resx">
+      <DependentUpon>201505191935288_MediumIDAndArticleIDNotNullInVote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505231550436_ClicksAdded.resx">
+      <DependentUpon>201505231550436_ClicksAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506192033191_Remote.resx">
+      <DependentUpon>201506192033191_Remote.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>7526</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:7526/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

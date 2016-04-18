@@ -1,0 +1,36 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Reklama dolna";
+}
+
+<div class="container">
+
+    <h2>Reklama dolna</h2>
+    @if (Model.Count() < 1)
+    {
+        <p>
+            @Html.ActionLink("Dodaj", "Create")
+        </p>
+    }
+    <div class="myArticle">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5>@item.Title</h5>
+                    (@Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID }) | @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <img class="img-thumbnail img-responsive" src="@(item.Images.FirstOrDefault() == null ? "" : item.Images.First().Link)" alt="@item.Title" />
+                </div>
+                <div class="col-sm-6">
+                    <a href="@item.Www">@item.Www</a>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+</div>

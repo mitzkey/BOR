@@ -1,0 +1,132 @@
+﻿@model BOR.ViewModels.ShopView
+
+@{
+    ViewBag.Title = "Sklep";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/SKLEP.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+    @if (Model.Shop != null)
+    {
+        <div class="myArticle">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12 col-shop-logo center-block">
+                            <div class="new-shop">
+                                PW OFFROAD
+                            </div>
+                            @*<img class="img-responsive shop-logo center-block" src="@(Model.Shop.Images.Count() > 0 ? Model.Shop.Images.First().MiniatureLink : "")"
+                                 alt="@(Model.Shop.Images.Count() > 0 ? Model.Shop.Images.First().Name : "")" />*@
+                        </div>
+                    </div>
+                    <hr class="hr-shop"/>
+                    <h3 class="shop-name text-center">@Html.DisplayFor(modelItem => modelItem.Shop.Title)</h3>
+                    <hr class="hr-shop" />
+                    <div class="shop-description">
+                        @Html.DisplayFor(modelItem => modelItem.Shop.Text)
+                    <hr class="hr-shop hr-short" />
+                        <h4 class="h4-shop">ADRES:</h4>
+                        ul. @Html.DisplayFor(modelItem => modelItem.Shop.Street) @Html.DisplayFor(modelItem => modelItem.Shop.HouseNumber)
+                        @{
+                            if (Model.Shop.ApartmentNumber != null && Model.Shop.ApartmentNumber != "")
+                            {
+                                <text>/ @Html.DisplayFor(modelItem => modelItem.Shop.ApartmentNumber)</text>
+                            }
+                        }
+                        <br />
+                        @{
+                            if (Model.Shop.Zipcode != null && Model.Shop.Zipcode != "")
+                            {
+                                <text>@Html.DisplayFor(modelItem => modelItem.Shop.Zipcode), </text>
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => modelItem.Shop.City), @Html.DisplayFor(modelItem => modelItem.Shop.Voivodship.Name)
+                        <hr class="hr-shop hr-short" />
+                        <div class="shop-email">
+                            @Html.DisplayFor(modelItem => modelItem.Shop.Email)
+                        </div>
+                        tel. @Html.DisplayFor(modelItem => modelItem.Shop.PhoneNo)
+                        <br />
+                        <br />
+                    </div>
+                        <a class="img-link" href="@Url.Action("Map", "Shop", new { id = Model.Shop.ArticleID })">
+                            @* google maps*@
+                            <div id="map-canvas" class="shop-minimap"></div>
+                            @* end of google maps *@
+                        </a>
+                </div>
+                <div class="col-sm-6">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <a href="@Url.Action("Index", "Parts", new { categories = item.Title})">
+                            <div class="myArticle">
+                                <img class="img-thumbnail img-responsive category-symbol" src="@(item.Images.Count() > 0 ? item.Images.First().MiniatureLink : "")"
+                                     alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                                @Html.DisplayFor(i => item.Title)
+                                @Html.DisplayFor(i => item.Text)
+                            </div>
+                        </a>
+                    }
+                    @using (Html.BeginForm("Index", "Parts", FormMethod.Get))
+                    {
+                        <p>
+                            Szukaj: @Html.TextBox("searchString", ViewBag.CurrentFilter as String)
+                            <input type="submit" value="Szukaj" />
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj część", "Create", "Parts", null, null)
+        </p>
+    }
+</div>
+
+@* google maps *@
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb7yEklMf8WzBusF4pykg_j-KmegWgMoI">
+</script>
+<script type="text/javascript">
+    @{
+        string googleMapsAddress = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+            Model.Shop.Street + "+" + Model.Shop.HouseNumber + ",+" + Model.Shop.City +
+            "&key=AIzaSyDICsovbKs7qwN0r6rqaQTW0-vksuLUaKw";
+        var json = new WebClient().DownloadString(googleMapsAddress);
+        dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+        string lat = @data.results[0].geometry.location.lat;
+        string lng = @data.results[0].geometry.location.lng;
+        string modelTitle = !String.IsNullOrEmpty(Model.Shop.Title) ? Model.Shop.Title : "";
+        string title = modelTitle.Replace("'", " ");
+        <text>
+    function initialize() {
+        var myLatLng = new google.maps.LatLng(@lat, @lng);
+
+        var mapOptions = {
+            center: myLatLng,
+            zoom: 15
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+        var markerTitle ="@title";
+        var marker = new google.maps.Marker({
+            title: markerTitle,
+            position: myLatLng,
+            map: map
+        });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        </text>
+    }
+</script>
+
+@* end of google maps *@

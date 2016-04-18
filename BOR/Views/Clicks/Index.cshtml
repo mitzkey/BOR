@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BOR.Models.Click>
+
+@{
+    ViewBag.Title = "Kliknięcia";
+}
+
+<div class="container">
+    <h2>Kliknięcia</h2>
+    <div class="myArticle">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArticleType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Resetuj", "Delete", new { id = item.ClickID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

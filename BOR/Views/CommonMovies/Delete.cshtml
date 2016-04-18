@@ -1,0 +1,22 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Usuń film";
+}
+
+<div class="container main-menu">
+
+    <h3>Usunąć film "@Model.Title"?</h3>
+    <div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-default" /> |
+                @Html.ActionLink("Powrót", "Index")
+            </div>
+        }
+    </div>
+</div>

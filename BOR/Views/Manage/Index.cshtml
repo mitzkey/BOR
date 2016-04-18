@@ -1,0 +1,49 @@
+﻿@model BOR.Models.IndexViewModel
+@{
+    ViewBag.Title = "Panel administracyjny";
+}
+
+<div class="container main-menu">
+    <h2>Panel administracyjny</h2>
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <hr />       
+    <div class="myArticle">
+        <p>
+            @if (Model.HasPassword)
+            {
+                <a class="btn btn-default" href="@Url.Action("ChangePassword", "Manage")">Zmień hasło</a>
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("MediaVotingResults", "Manage")">Głosowanie Offroad Girls</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("RankingPartsVotingResults", "Manage")">Głosowanie na części</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Create", "Shop")">Edytuj sklep</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Categories")">Zarządaj kategoriami produktów</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "WorkshopCategories")">Zarządaj kategoriami warsztatów</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Ads")">Reklamy - pasek</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "BottomAd")">Reklama dolna</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Clicks")">Liczba wejść na działy</a>
+        </p>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Contact")">Kontakt</a>
+        </p>
+    </div>
+</div>

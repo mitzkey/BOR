@@ -1,0 +1,73 @@
+﻿@model BOR.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Strona domowa";
+}
+
+<div class="row">
+    <img src="~/Content/Images/POSTPRODUKCJA/BRANDING 2592 x 650/na stronę/_JAC2255.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu" onload="initializeMap()">
+    <div class="row row-main row-same-height">
+        <div class="row-same-height">
+            <div class="col-sm-4 col-sm-height col-bottom">
+                <div class="col-index">
+                    <a class="img-link" href="@Url.Action("Index", "Articles")">
+                        <img class="img-responsive img-main-menu" src="~/Content/Images/Index/artykuły 702x440.jpg" />
+                    </a>
+                    <a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "Articles")">ARTYKUŁY</a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-sm-height col-bottom">
+                <div class="col-index">
+                    <a class="img-link" href="@Url.Action("Index", "OffRoadGirls")">
+                        <img class="img-responsive img-main-menu" src="~/Content/Images/POSTPRODUKCJA/STRONA GŁÓWNA 700 x 440/NA STRONĘ/_JAC3089.jpg" />
+                    </a>
+                    <a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "OffRoadGirls")">OFF ROAD GIRLS</a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-sm-height col-bottom">
+                <div class="col-index">
+                    <a class="img-link" href="@Url.Action("Index", "Parts")">
+                        <img class="img-responsive img-main-menu" src="~/Content/Images/POSTPRODUKCJA/STRONA GŁÓWNA 700 x 440/NA STRONĘ/_JAC2082.jpg" />
+                    </a>
+                    <a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "Parts")">SKLEP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="hr-main"/>
+    <div class="row row-main">
+        <div class="row-same-height">
+            <div class="col-sm-6 col-sm-height col-bottom">
+                <div class="col-index">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" width="420" height="315" src="https://www.youtube.com/embed/XSMFLXVHD70" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <a class="btn btn-default btn-main-menu" href="@Url.Action("Main", "Services")">OFERTA</a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-height col-bottom">
+                <div class="col-index">
+                    <a class="img-link" href="@Url.Action("Index", "Workshops")">
+                        <img id="workshopMap" class="img-responsive center-block img-main-menu img-search" 
+                             src="~/Content/Images/Index/mapka warsztatów.jpg" 
+                             alt="Wyszukiwarka warsztatów"
+                             onmouseover="secondWorkshopMap()"
+                             onmouseout="firstWorkshopMap()" />
+                    </a>
+                        <p><a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "Workshops")">WARSZTATY</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function secondWorkshopMap() {
+        workshopMap.src = "/Content/Images/Index/mapka warsztatów2.jpg"
+    }
+    function firstWorkshopMap() {
+        workshopMap.src = "/Content/Images/Index/mapka warsztatów.jpg"
+    }
+</script>

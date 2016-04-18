@@ -1,0 +1,122 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Imprezy";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/KALENDARZ IMPREZ.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+    <p>
+        @Html.ActionLink("Dodaj imprezę", "Create")
+    </p>
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <p>
+                        <a href="@(item.Images.Count() > 0 ? item.Images.First().Link : "")" 
+                           title="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" data-gallery>
+                            <img class="img-thumbnail img-link workshop-logo center-block"
+                                 src="@(item.Images.Count() > 0 ? item.Images.First().Link : "")"
+                                 alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Opis</h4>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </p>
+                    @Html.DisplayFor(modelItem => item.Www)
+                </div>
+                <div class="col-md-4">
+                    <h4>Gdzie</h4>
+                    ul.@Html.DisplayFor(modelItem => item.Street) @Html.DisplayFor(modelItem => item.HouseNumber) @{
+        if (!String.IsNullOrEmpty(item.ApartmentNumber))
+        {
+                <text>/ @Html.DisplayFor(modelItem => item.ApartmentNumber)</text>
+        }
+                    }
+                    <br />
+                    @{
+        if (!String.IsNullOrEmpty(item.Zipcode))
+        {
+                <text>@Html.DisplayFor(modelItem => item.Zipcode), </text>
+        }
+                    }
+                    @Html.DisplayFor(modelItem => item.City)@{
+        if (item.Voivodship != null && !String.IsNullOrEmpty(item.Voivodship.Name))
+        {
+            <text>, @Html.DisplayFor(modelItem => item.Voivodship.Name)</text>
+        }
+                    }
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Email)
+                    <hr />
+                    <h4>Kiedy</h4>
+                    <p>
+                        <h5>Start:</h5>
+                        @Html.DisplayFor(modelItem => item.StartDate) - 
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </p>
+                    <p>
+                        <h5>Koniec:</h5>
+                        @Html.DisplayFor(modelItem => item.End) - 
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </p>
+                </div>
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                <span>|</span>
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+            }
+        </div>
+    }
+</div>
+
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="~/Scripts/bootstrap-image-gallery.min.js"></script>

@@ -1,0 +1,43 @@
+﻿@model BOR.ViewModels.GalleryMainView
+
+@{
+    ViewBag.Title = "Galeria";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/GALERIA.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu">
+        @if (ViewBag.error != null)
+        {
+            <h4>@ViewBag.error</h4>
+            @Html.ActionLink("Zdjęcia", "Index", "Galleries", null, null)
+            <br />
+            @Html.ActionLink("Filmy", "Index", "CommonMovies", null, null)
+        }
+        else
+        {
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-6 col-bottom">
+                        <div class="col-index">
+                            <a class="img-link" href="@Url.Action("Index", "Galleries")">
+                                <img class="img-responsive img-main-menu" src="~/Content/Images/galleryMain.jpg" alt="@Model.Image.Name" />
+                            </a>
+                            <a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "Galleries")">ZDJĘCIA</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-bottom">
+                        <div class="col-index">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" width="420" height="315" src="@Model.Movie.Www" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <a class="btn btn-default btn-main-menu" href="@Url.Action("Index", "CommonMovies")">FILMY</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+</div>
+

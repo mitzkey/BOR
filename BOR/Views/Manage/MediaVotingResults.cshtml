@@ -1,0 +1,36 @@
+﻿@model BOR.ViewModels.MediaVotingResults
+@{
+    ViewBag.Title = "Wyniki głosowania";
+}
+
+<div class="container">
+    <h2>Wyniki głosowania</h2>
+    <hr />
+    <div class="myArticle">
+        <ul class="row ul-gallery">
+        @{
+                int cnt = 0;
+
+                foreach (var item in Model.Results)
+                {
+                    if (cnt++ % 4 == 0)
+                    {
+                        @:</ul><ul class="row ul-gallery">
+                    }
+                @:<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <a href="@Url.Action("Index", "Media", new { articleID = item.Key.ArticleID})">
+                        <img class="img-thumbnail" src="@item.Key.MiniatureLink" alt="@item.Key.Name" />
+                    </a>
+                    <p>
+                        @item.Key.Name |
+                        Głosy: @item.Value
+                    </p>
+                @:</li>
+            }
+            @:</ul>
+        }
+        @Html.ActionLink("Resetuj głosowanie", "VotingReset", "Manage", new { type = "Medium" }, null)
+    </div>
+</div>
+
+

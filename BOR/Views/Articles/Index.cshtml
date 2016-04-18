@@ -1,0 +1,139 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Artykuły";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/ARTYKUŁY.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu"> 
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Utwórz nowy", "Create")
+    }
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <div class="row article-photos">
+                <div class="col-sm-10 col-md-7 article-title">
+                    <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                </div>
+            </div>
+            <h5>@Html.DisplayFor(modelItem => item.DateAdded)</h5>
+            <p>
+                @if (item.Images.Count() > 0)
+                {
+                    <a href="@item.Images.First().Link" title="@item.Images.First().Name" data-gallery>
+                    <img class="img-thumbnail img-article img-responsive" src="@(item.Images.Count() > 0 ? item.Images.First().MiniatureLink : "")"
+                            alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                    </a>
+                }
+            @{
+                string text = item.Text;
+                string[] textWords = text.Split(' ');
+                int imageCount = (int)Math.Floor((double)textWords.Length / 200.0);
+                int imageLeft = imageCount;
+                int imageIndex = 1;
+                int imageWordPosition = 200;
+                string imgRightClass = "img-thumbnail img-article-right";
+                for (int i = 0; i < textWords.Length; i++)
+                {
+                    <text>@textWords[i]</text>
+                    if (imageLeft > 0 && i == imageWordPosition && item.Images.ToArray().Length > imageIndex)
+                    {
+                        if (imageIndex % 2 == 0)
+                        {
+                            imgRightClass = "img-thumbnail img-article";
+                        }
+                        else
+                        {
+                            imgRightClass = "img-thumbnail img-article-right";
+                        }
+                        <text>
+                            <a href="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).Link : "")"
+                                title="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).Name : "")"
+                                data-gallery>
+                                <img class="@imgRightClass"
+                                        src="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).MiniatureLink : "")"
+                                        alt="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).Name : "")" />
+                            </a>
+                        </text>
+                        imageWordPosition = imageWordPosition + 200;
+                        imageIndex++;
+                    }
+                }
+                @:</p>
+                if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                    <span>|</span>
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                }
+                
+                if (imageIndex < item.Images.Count())
+                {
+                    <p class="article-photos">
+                        <div class="row article-photos">
+                            <div id="links">
+                                <div class="menu row-gallery">
+                                    @for (int i = imageIndex; i < item.Images.Count(); i++)
+                                    {
+                                        <div class="menu-category-gallery list-group">
+                                            <a href="@item.Images.ElementAt(i).Link" title="@item.Images.ElementAt(i).Name" data-gallery>
+                                                <img class="img-thumbnail img-responsive" src="@item.Images.ElementAt(i).MiniatureLink" alt="@item.Images.ElementAt(i).Name" />
+
+                                            </a>
+                                            <div class="photo-description">@item.Images.ElementAt(i).Name</div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                }
+            }
+        </div>
+    }
+
+</div>
+
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="~/Scripts/bootstrap-image-gallery.min.js"></script>

@@ -1,0 +1,58 @@
+﻿@model PagedList.IPagedList<BOR.Models.Article>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Filmy";
+}
+
+<div class="container main-menu">
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj film", "Create")
+        </p>
+    }
+
+    <div class="row">
+    @{
+        int cnt = 0;
+
+        foreach (var item in Model)
+        {
+            if (cnt++ % 2 == 0)
+            {
+                @:</div><div>
+            }
+            @:<div class="col-md-3">
+                <div class="myArticle">
+                    <div class="row">
+                        <div class="col-sm-10 col-md-7 article-title">
+                            <h6>@Html.DisplayFor(modelItem => item.Title)</h6>
+                        </div>
+                    </div>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                    <p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" width="560" height="315" src="@item.Www" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </p>
+                    @Html.DisplayFor(modelItem => item.Text)
+                    <br />
+                    @if (Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                        <span>|</span>
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                    }
+                </div>
+                @:</div>
+        }
+        @:</div>
+     }
+</div>
+<div class="container">
+    <br />
+    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

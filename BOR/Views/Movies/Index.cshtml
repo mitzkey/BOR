@@ -1,0 +1,57 @@
+﻿@model PagedList.IPagedList<BOR.Models.Article>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Filmy";
+}
+
+<div class="row">
+    <img src="~/Content/Images/POSTPRODUKCJA/BRANDING 2592 x 650/na stronę/DSC_7218.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container">
+    <h2>Filmy </h2>
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj film", "Create")
+        </p>
+    }
+    <div class="row">
+    @{
+        int cnt = 0;
+
+        foreach (var item in Model)
+        {
+            if (cnt++ % 3 == 0)
+            {
+                @:</div><div>
+            }
+            @:<div class="col-md-4">
+                <div class="myArticle movieArticle">
+                    <h4 class="movieTitle">@Html.DisplayFor(modelItem => item.Title)</h4><div class="movieTitle">@Html.DisplayFor(modelItem => item.DateAdded)</div>
+                    <p class="movieEmbed">
+                        <div class="embed-responsive embed-responsive-16by9 movieEmbed">
+                            <iframe class="embed-responsive-item movieEmbed" width="560" height="315" src="@item.Www" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </p>
+                    @Html.DisplayFor(modelItem => item.Text)
+                    <br />
+                    @if (Request.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                        <span>|</span>
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                    }
+                </div>
+            @:</div>
+        }
+        @:</div>
+    }
+</div>
+<div class="container">
+    <br />
+    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BOR.Models.Article>
+
+@{
+    ViewBag.Title = "Kategorie produktów" + (ViewBag.superCategory == null ? "" : ViewBag.superCategory.Title);
+}
+
+<div class="container main-menu">
+    @if (ViewBag.superCategory != null) {
+        <h4>@ViewBag.superCategory.Title</h4>;
+    }
+    
+    <p>
+        @Html.ActionLink("Dodaj", "Create", new { superCategoryID = (ViewBag.superCategory == null ? null : ViewBag.superCategory.ArticleID) })
+    </p>
+
+    @foreach (var item in Model)
+    {
+        <div class="myArticle">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-thumbnail"
+                             src="@(item.Images.Count() > 0 ? item.Images.First().Link : "")"
+                             alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                </div>
+                <div class="col-md-8">
+                    <h4>@Html.DisplayFor(i => item.Title)</h4>
+                    @Html.DisplayFor(i => item.Text)
+                    <p>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID }) |
+                        @Html.ActionLink("Podkategorie", "Index", new { superCategoryID = item.ArticleID })
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    @Html.ActionLink("Powrót", "Index", "Manage", null, null)
+</div>

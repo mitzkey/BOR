@@ -1,0 +1,132 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<BOR.Models.Article>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Warsztaty";
+}
+
+<div class="row">
+    <img src="~/Content/Images/Branding/WARSZTATY.jpg" class="img-responsive img-banner" alt="Off-road main" />
+</div>
+
+<div class="container main-menu container-transparent">
+    <div class="row row-voivodships">
+        <p>
+            @Html.ActionLink("DOLNOŚLĄSKIE", "Index", new { voivodships = "dolnośląskie" }) |
+            @Html.ActionLink("KUJAWSKO-POMORSKIE", "Index", new { voivodships = "kujawsko-pomorskie" }) |
+            @Html.ActionLink("LUBELSKIE", "Index", new { voivodships = "lubelskie" }) |
+            @Html.ActionLink("LUBUSKIE", "Index", new { voivodships = "lubuskie" }) |
+            @Html.ActionLink("ŁÓDZKIE", "Index", new { voivodships = "łódzkie" }) |
+            @Html.ActionLink("MAŁOPOLSKIE", "Index", new { voivodships = "małopolskie" }) |
+            @Html.ActionLink("MAZOWIECKIE", "Index", new { voivodships = "mazowieckie" }) |
+            @Html.ActionLink("OPOLSKIE", "Index", new { voivodships = "opolskie" })
+        </p>
+        <p>
+            @Html.ActionLink("PODKARPACKIE", "Index", new { voivodships = "podkarpackie" }) |
+            @Html.ActionLink("PODLASKIE", "Index", new { voivodships = "podlaskie" }) |
+            @Html.ActionLink("POMORSKIE", "Index", new { voivodships = "pomorskie" }) |
+            @Html.ActionLink("ŚLĄSKIE", "Index", new { voivodships = "śląskie" }) |
+            @Html.ActionLink("ŚWIĘTOKRZYSKIE", "Index", new { voivodships = "świętokrzyskie" }) |
+            @Html.ActionLink("WARMIŃSKO-MAZURSKIE", "Index", new { voivodships = "warmińsko-mazurskie" }) |
+            @Html.ActionLink("WIELKOPOLSKIE", "Index", new { voivodships = "wielkopolskie" }) |
+            @Html.ActionLink("ZACHODNIOPOMORSKIE", "Index", new { voivodships = "zachodniopomorskie" })
+
+        </p>
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj warsztat", "Create")
+        </p>
+    }
+    @*@using (Html.BeginForm("Index", "Workshops", FormMethod.Get))
+    {
+        <p>
+            Szukaj: @Html.TextBox("searchString", ViewBag.CurrentFilter as String)
+            <label class="control-label col-md-2" for="VoivodshipID">Województwo:</label>
+            <div class="col-md-10">
+                @Html.DropDownList("voivodships", String.Empty)
+            </div>
+            <input type="submit" value="Szukaj" />
+        </p>
+    }*@
+
+    @foreach (var item in Model)
+    {
+
+        <div class="myArticle workshop-article">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="img-link" href="@item.Www">
+                        <img class="img-thumbnail img-link workshop-logo center-block"
+                             src="@(item.Images.Count() > 0 ? item.Images.First().Link : "")"
+                             alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                    </a>
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                            <span class="workshop-link">@Html.DisplayFor(modelItem => item.Www)</span>
+                        </div>
+                        <div class="col-xs-3">
+                            @if (item.Category != null)
+                            {
+                                <img class="center-block workshop-category-image img-responsive"
+                                     src="@(item.Category.Images.Count() > 0 ? item.Category.Images.First().Link : "")"
+                                     alt="@(item.Category.Images.Count() > 0 ? item.Category.Images.First().Link : "")">
+                            }
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="content workshop-description hideContent">
+                                @Html.DisplayFor(modelItem => item.Text)
+                            </div>
+                            <div class="show-more"><a>(pokaż więcej)</a></div>
+                            <br />
+                            @if (Request.IsAuthenticated)
+                            {
+                                <span>(</span>@Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
+                                <span>|</span>
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })<span>)</span>
+                            }
+                            <br />
+                            @Html.ActionLink("Opinie >>", "Comments", new { id = item.ArticleID })
+                        </div>
+                        <div class="col-sm-4 workshop-address">
+                            <h3>ADRES:</h3>
+                            ul.@Html.DisplayFor(modelItem => item.Street) @Html.DisplayFor(modelItem => item.HouseNumber)
+                            @{
+                                if (item.ApartmentNumber != null && item.ApartmentNumber != "")
+                                {
+                                    <text>/ @Html.DisplayFor(modelItem => item.ApartmentNumber)</text>
+                                }
+                            }
+                                            <br />
+                            @{
+                                if (item.Zipcode != null && item.Zipcode != "")
+                                {
+                                    <text>@Html.DisplayFor(modelItem => item.Zipcode), </text>
+                                }
+                            }
+                            @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.Voivodship.Name)
+                            <br />
+                            <span class="workshop-email">@Html.DisplayFor(modelItem => item.Email)</span>
+                            <br />
+                            @Html.DisplayFor(modelItem => item.PhoneNo)
+                            <br />
+                            <a class="img-link" href="@Url.Action("Map", "Workshops", new { id = item.ArticleID })">
+                                <img class="" src="~/Content/Images/Common/Google-Maps-icon.png" alt="google-maps-icon" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+</div>

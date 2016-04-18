@@ -1,0 +1,56 @@
+﻿@model BOR.Models.Article
+
+@{
+    ViewBag.Title = "Usuń film";
+}
+<div class="container">
+    <h3>Usunąć film "@Model.Title"?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Text)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Author)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateAdded)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-default" /> |
+                @Html.ActionLink("Powrót", "Index")
+            </div>
+        }
+    </div>
+</div>
