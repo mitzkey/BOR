@@ -11,29 +11,6 @@
 </div>
 
 <div class="container main-menu container-transparent">
-    <div class="row row-voivodships">
-        <p>
-            @Html.ActionLink("DOLNOŚLĄSKIE", "Index", new { voivodships = "dolnośląskie" }) |
-            @Html.ActionLink("KUJAWSKO-POMORSKIE", "Index", new { voivodships = "kujawsko-pomorskie" }) |
-            @Html.ActionLink("LUBELSKIE", "Index", new { voivodships = "lubelskie" }) |
-            @Html.ActionLink("LUBUSKIE", "Index", new { voivodships = "lubuskie" }) |
-            @Html.ActionLink("ŁÓDZKIE", "Index", new { voivodships = "łódzkie" }) |
-            @Html.ActionLink("MAŁOPOLSKIE", "Index", new { voivodships = "małopolskie" }) |
-            @Html.ActionLink("MAZOWIECKIE", "Index", new { voivodships = "mazowieckie" }) |
-            @Html.ActionLink("OPOLSKIE", "Index", new { voivodships = "opolskie" })
-        </p>
-        <p>
-            @Html.ActionLink("PODKARPACKIE", "Index", new { voivodships = "podkarpackie" }) |
-            @Html.ActionLink("PODLASKIE", "Index", new { voivodships = "podlaskie" }) |
-            @Html.ActionLink("POMORSKIE", "Index", new { voivodships = "pomorskie" }) |
-            @Html.ActionLink("ŚLĄSKIE", "Index", new { voivodships = "śląskie" }) |
-            @Html.ActionLink("ŚWIĘTOKRZYSKIE", "Index", new { voivodships = "świętokrzyskie" }) |
-            @Html.ActionLink("WARMIŃSKO-MAZURSKIE", "Index", new { voivodships = "warmińsko-mazurskie" }) |
-            @Html.ActionLink("WIELKOPOLSKIE", "Index", new { voivodships = "wielkopolskie" }) |
-            @Html.ActionLink("ZACHODNIOPOMORSKIE", "Index", new { voivodships = "zachodniopomorskie" })
-
-        </p>
-    </div>
     @if (Request.IsAuthenticated)
     {
         <p>
