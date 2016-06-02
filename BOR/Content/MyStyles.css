@@ -1096,3 +1096,8 @@ div.text-container {
 .workshop-category-image {
     max-height: 100px;
 }
+
+#editor {
+    overflow:scroll; 
+    max-height:300px
+}
