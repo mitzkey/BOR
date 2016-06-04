@@ -91,10 +91,10 @@
 
                         </a>
                                 <div class="photo-description">@item.Name</div>
-                                <div class="photo-description">URL: @item.Link</div>
-                                <div class="photo-description">URL miniatury: @item.MiniatureLink</div>
                                 @if (Request.IsAuthenticated)
                                 {
+                                    <div class="url-description">URL: @item.Link</div>
+                                    <div class="url-description">URL miniatury: @item.MiniatureLink</div>                                
                                     @Html.ActionLink("Usuń", "Delete", new { id = item.MediumID })
                                     <span>|</span>
                                     @Html.ActionLink("Edytuj", "Edit", new { id = item.MediumID })

@@ -1101,3 +1101,7 @@ div.text-container {
     overflow:scroll; 
     max-height:300px
 }
+
+.url-description {
+    font-size: x-small;
+}
