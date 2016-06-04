@@ -91,6 +91,8 @@
 
                         </a>
                                 <div class="photo-description">@item.Name</div>
+                                <div class="photo-description">URL: @item.Link</div>
+                                <div class="photo-description">URL miniatury: @item.MiniatureLink</div>
                                 @if (Request.IsAuthenticated)
                                 {
                                     @Html.ActionLink("Usuń", "Delete", new { id = item.MediumID })

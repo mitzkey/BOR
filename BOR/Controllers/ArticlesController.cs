@@ -59,7 +59,7 @@ namespace BOR.Controllers
                 article.Type = "Article";
                 db.Articles.Add(article);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Articles");
+                return RedirectToAction("Edit", new { id = article.ArticleID });
             }
 
             return View(article);
