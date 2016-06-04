@@ -11,3 +11,4 @@
 /// <reference path="bootstrap.min.js" />
 /// <reference path="jquery.hotkeys.js" />
 /// <reference path="bootstrap-wysiwyg.js" />
+/// <reference path="../cleditor/jquery.cleditor.js" />

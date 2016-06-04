@@ -384,6 +384,7 @@
     <Content Include="Content\Images\Branding\SKLEP.jpg" />
     <Content Include="Content\Images\Branding\USŁUGI.jpg" />
     <Content Include="Content\Images\Branding\WARSZTATY.jpg" />
+    <Content Include="CLEditor\Images\buttons.gif" />
     <Content Include="Content\Images\Common\Ads\audi_150x150.jpg" />
     <Content Include="Content\Images\Common\Ads\batman_150x150.jpg" />
     <Content Include="Content\Images\Common\Ads\bmw_150x150.jpeg" />
@@ -454,8 +455,10 @@
     <Content Include="Content\Images\Shop\zawieszenie EPS2.png" />
     <Content Include="Content\Images\Shop\zawieszenie IRONMAN.png" />
     <Content Include="Content\Images\Shop\zawieszenie IRONMAN2.png" />
+    <Content Include="CLEditor\Images\toolbar.gif" />
     <Content Include="Content\Images\_JAC2503.jpg" />
     <Content Include="Content\Images\_JAC3245.jpg" />
+    <Content Include="CLEditor\jquery.cleditor.css" />
     <Content Include="Content\MyStyles.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -513,6 +516,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Content Include="CLEditor\jquery.cleditor.js" />
+    <Content Include="CLEditor\jquery.cleditor.min.js" />
     <Content Include="Scripts\jquery.hotkeys.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
