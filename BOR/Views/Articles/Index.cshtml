@@ -22,78 +22,13 @@
                 </div>
             </div>
             <h5>@Html.DisplayFor(modelItem => item.DateAdded)</h5>
-            <p>
-                @if (item.Images.Count() > 0)
-                {
-                    <a href="@item.Images.First().Link" title="@item.Images.First().Name" data-gallery>
-                    <img class="img-thumbnail img-article img-responsive" src="@(item.Images.Count() > 0 ? item.Images.First().MiniatureLink : "")"
-                            alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
-                    </a>
-                }
-            @{
-                string text = item.Text;
-                string[] textWords = text.Split(' ');
-                int imageCount = (int)Math.Floor((double)textWords.Length / 200.0);
-                int imageLeft = imageCount;
-                int imageIndex = 1;
-                int imageWordPosition = 200;
-                string imgRightClass = "img-thumbnail img-article-right";
-                for (int i = 0; i < textWords.Length; i++)
-                {
-                    <text>@textWords[i]</text>
-                    if (imageLeft > 0 && i == imageWordPosition && item.Images.ToArray().Length > imageIndex)
-                    {
-                        if (imageIndex % 2 == 0)
-                        {
-                            imgRightClass = "img-thumbnail img-article";
-                        }
-                        else
-                        {
-                            imgRightClass = "img-thumbnail img-article-right";
-                        }
-                        <text>
-                            <a href="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).Link : "")"
-                                title="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).Name : "")"
-                                data-gallery>
-                                <img class="@imgRightClass"
-                                        src="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).MiniatureLink : "")"
-                                        alt="@(item.Images.Count() > imageIndex ? item.Images.ElementAt(imageIndex).Name : "")" />
-                            </a>
-                        </text>
-                        imageWordPosition = imageWordPosition + 200;
-                        imageIndex++;
-                    }
-                }
-                @:</p>
-                if (Request.IsAuthenticated)
+            @Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Text))
+            @if (Request.IsAuthenticated)
                 {
                     @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID })
                     <span>|</span>
                     @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
                 }
-                
-                if (imageIndex < item.Images.Count())
-                {
-                    <p class="article-photos">
-                        <div class="row article-photos">
-                            <div id="links">
-                                <div class="menu row-gallery">
-                                    @for (int i = imageIndex; i < item.Images.Count(); i++)
-                                    {
-                                        <div class="menu-category-gallery list-group">
-                                            <a href="@item.Images.ElementAt(i).Link" title="@item.Images.ElementAt(i).Name" data-gallery>
-                                                <img class="img-thumbnail img-responsive" src="@item.Images.ElementAt(i).MiniatureLink" alt="@item.Images.ElementAt(i).Name" />
-
-                                            </a>
-                                            <div class="photo-description">@item.Images.ElementAt(i).Name</div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </p>
-                }
-            }
         </div>
     }
 

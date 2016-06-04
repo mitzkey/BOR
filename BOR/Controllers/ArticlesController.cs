@@ -56,11 +56,10 @@ namespace BOR.Controllers
         {
             if (ModelState.IsValid)
             {
-                article.DateAdded = DateTime.Now;
                 article.Type = "Article";
                 db.Articles.Add(article);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Media", new { articleID = article.ArticleID });
+                return RedirectToAction("Index", "Articles");
             }
 
             return View(article);
@@ -93,10 +92,9 @@ namespace BOR.Controllers
             if (ModelState.IsValid)
             {
                 article.Type = "Article";
-                article.DateAdded = DateTime.Now;
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Media", new { articleID = article.ArticleID });
+                return RedirectToAction("Index", "Articles");
             }
             return View(article);
         }
