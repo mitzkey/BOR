@@ -146,7 +146,7 @@ namespace BOR.Controllers
                 return HttpNotFound();
             }
             ViewBag.VoivodshipID = new SelectList(db.Voivodships, "VoivodshipID", "Name", article.VoivodshipID);
-            PopulateCategoriesDropdownList();
+            PopulateCategoriesDropdownList(article.CategoryID);
             return View(article);
         }
 
@@ -155,18 +155,21 @@ namespace BOR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ArticleID,Type,Title,Text,Author,CategoryID,DateAdded,VoivodshipID,Zipcode,City,Street,HouseNumber,ApartmentNumber,PhoneNo,Longitude,Latitude,Www,Email,StartDate,StartTime,End,EndTime")] Article article)
+        public ActionResult Edit([Bind(Include = "ArticleID,Type,Title,Text,Author,CategoryID,Category,DateAdded,VoivodshipID,Zipcode,City,Street,HouseNumber,ApartmentNumber,PhoneNo,Longitude,Latitude,Www,Email,StartDate,StartTime,End,EndTime")] Article article)
         {
             if (ModelState.IsValid)
             {
+                db.Entry(article).State = EntityState.Modified;
+                var article3 = db.Articles.Include("Category").Where(a => a.ArticleID == article.ArticleID).FirstOrDefault();
+                article.Category = db.Articles.Find(article.CategoryID);
                 article.Type = "Part";
                 article.DateAdded = DateTime.Now;
-                db.Entry(article).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index", "Media", new { articleID = article.ArticleID });
             }
             ViewBag.VoivodshipID = new SelectList(db.Voivodships, "VoivodshipID", "Name", article.VoivodshipID);
-            PopulateCategoriesDropdownList();
+            PopulateCategoriesDropdownList(article.CategoryID);
             return View(article);
         }
 

@@ -5,7 +5,8 @@
     @{
         if (Model.Article.Type == "Gallery" || Model.Article.Type == "OffRoadGirl" ||
             Model.Article.Type == "Event" || Model.Article.Type == "Part" ||
-            Model.Article.Type == "RankingPart" || Model.Article.Type == "Article")
+            Model.Article.Type == "RankingPart" || Model.Article.Type == "Article" ||
+            Model.Article.Type == "WorkshopCategory")
         {
             ViewBag.Title = Model.Article.Title + " - Dodaj zdjęcie";
             <h2>@Model.Article.Title</h2>
