@@ -136,7 +136,8 @@ namespace BOR.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                db.Entry(article).State = EntityState.Modified;
+                var article2 = db.Articles.Include("Category").Where(a => a.ArticleID == article.ArticleID).FirstOrDefault();
                 //google maps coordinates aquiring:
                 string googleMapsAddress = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     article.Street + "+" + article.HouseNumber + ",+" + article.City +
@@ -151,7 +152,7 @@ namespace BOR.Controllers
                 article.Longitude = data.results[0].geometry.location.lng;
                 article.Category = db.Articles.Where(a => a.ArticleID == article.CategoryID).SingleOrDefault();
 
-                db.Entry(article).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index", "Media", new { articleID = article.ArticleID });
             }
