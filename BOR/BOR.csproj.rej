@@ -1,0 +1,31 @@
+diff a/BOR/BOR.csproj b/BOR/BOR.csproj	(rejected hunks)
+@@ -498,18 +498,24 @@
+     <Content Include="Content\Site.css" />
+     <Content Include="Scripts\bootstrap-image-gallery.js" />
+     <Content Include="Scripts\bootstrap-image-gallery.min.js" />
+-    <Content Include="Scripts\bootstrap.js" />
+-    <Content Include="Scripts\bootstrap.min.js" />
++    <Content Include="fonts\glyphicons-halflings-regular.woff" />
++    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
++    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+     <None Include="Properties\PublishProfiles\bornoffroad.pl - Web Deploy %282%29.pubxml" />
+     <None Include="Properties\PublishProfiles\bornoffroad.pl - Web Deploy.pubxml" />
+     <None Include="Properties\PublishProfiles\Test.pubxml" />
+-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
++    <Content Include="Scripts\bootstrap-wysiwyg.js" />
++    <Content Include="Scripts\bootstrap.js" />
++    <Content Include="Scripts\bootstrap.min.js" />
+     <Content Include="Scripts\demo.js" />
+-    <Content Include="Scripts\jquery-1.10.2.js" />
+-    <Content Include="Scripts\jquery-1.10.2.min.js" />
++    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
++    <Content Include="Scripts\jquery-2.0.3.js" />
++    <Content Include="Scripts\jquery-2.0.3.min.js" />
++    <Content Include="Scripts\jquery-2.0.3.min.map" />
+     <None Include="Scripts\jquery.validate-vsdoc.js" />
+     <Content Include="Scripts\jquery-ui-1.11.4.js" />
+     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
++    <Content Include="Scripts\jquery.hotkeys.js" />
+     <Content Include="Scripts\jquery.validate.js" />
+     <Content Include="Scripts\jquery.validate.min.js" />
+     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
