@@ -5,8 +5,10 @@
     ViewBag.Title = "Części";
 }
 
-<div class="row">
-    <img src="~/Content/Images/Branding/SKLEP.jpg" class="img-responsive img-banner" alt="Off-road main" />
+<div class="container-fluid">
+    <div class="row">
+        <img src="~/Content/Images/Branding/SKLEP.jpg" class="img-responsive img-banner" alt="Off-road main" />
+    </div>
 </div>
 
 <div class="container main-menu">
@@ -21,7 +23,7 @@
                 {
                     if (cnt % 3 == 0)
                     {
-                        @:<div class="row">
+                        @:<div class="container-fluid"><div class="row">
                     }
                     <div class="col-md-4">
                         <p>
@@ -36,7 +38,7 @@
                     </div>
                     if ((cnt - 2) >= 0 && (cnt - 2) % 3 == 0)
                     {
-                        @:</div>
+                        @:</div></div>
                     }
                     cnt++;
                 }
@@ -60,46 +62,50 @@
         foreach (var item in Model.Parts)
         {
             <div class="myArticle workshop-comment">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
-                        <h6>@Html.DisplayFor(modelItem => item.Category.Title)</h6>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
+                            <h6>@Html.DisplayFor(modelItem => item.Category.Title)</h6>
+                        </div>
+                        <div class="col-sm-3">
+                            Cena: @(item.Longitude != null ? item.Longitude.ToString() : "-") zł
+                        </div>
+                        <div class="col-sm-3">
+                            Do koszyka:
+                            @if (item.Longitude != null)
+                            {
+                                <input class="input-number" type="number" value="0" name="@item.ArticleID" min="0" />
+                            }
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        Cena: @(item.Longitude != null ? item.Longitude.ToString() : "-") zł
-                    </div>
-                    <div class="col-sm-3">
-                        Do koszyka: 
-                        @if (item.Longitude != null)
-                        {
-                            <input class="input-number" type="number" value="0" name="@item.ArticleID" min="0" />
-                        }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <img class="img-thumbnail img-responsive img-part" src="@(item.Images.Count > 0 ? item.Images.First().MiniatureLink : "")"
-                             alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
-                    </div>
-                    <div class="col-sm-8">
-                        @Html.DisplayFor(modelItem => item.Text)
-                        <hr/>
-                        @if (Request.IsAuthenticated)
-                        {
-                            <p>
-                                @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }) |
-                                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
-                            </p>
-                        }
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="img-thumbnail img-responsive img-part" src="@(item.Images.Count > 0 ? item.Images.First().MiniatureLink : "")"
+                                 alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                        </div>
+                        <div class="col-sm-8">
+                            @Html.DisplayFor(modelItem => item.Text)
+                            <hr />
+                            @if (Request.IsAuthenticated)
+                            {
+                                <p>
+                                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }) |
+                                    @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                                </p>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         }
         if (Model.Parts.Count() > 0)
         {
-            <div class="row">
-                <div class="col-xs-9 col-xs-offset-3 col-sm-3 col-sm-offset-9 button-addToCart">
-                    <input type="submit" value="Dodaj do koszyka" class="btn btn-default" />
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-9 col-xs-offset-3 col-sm-3 col-sm-offset-9 button-addToCart">
+                        <input type="submit" value="Dodaj do koszyka" class="btn btn-default" />
+                    </div>
                 </div>
             </div>
         }

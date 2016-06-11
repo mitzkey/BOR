@@ -18,12 +18,10 @@
 </head>
 <body>
     
-    
     <div class="navbar navbar-inverse navbar-fixed-top navbar-upper">
         
         <div class="container">
             <div class="navbar-collapse collapse">
-                @*<img class="img-responsive logo" width="200" height="50" src="~/Content/Images/Common/logo_example_2.jpg" />*@ 
                 <ul class="nav navbar-nav nav-minor">
                     <li>@Html.ActionLink("SKLEP", "Index", "Shop", null, null)</li>
                     <li><a id="contact">KONTAKT</a><div class="navbar-divider"></div></li>
@@ -340,15 +338,6 @@
                             PW OFFROAD
                         </a>
                     </div>
-                    @*@if (bottomAd != null)
-                    {
-                        <a href="@bottomAd.Www">
-                            @{
-                                var image = bottomAd.Images.FirstOrDefault();
-                                <img class="img-responsive bottom center-block" src="@(image == null ? "" : image.Link)" />
-                            }
-                        </a>
-                    }*@
                 </div>
                 <div class="col-sm-4 col-sm-height col-middle">
                     @{ if (marcinContact != null && michalContact != null) {

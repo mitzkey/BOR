@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "Off Road Girls";
 }
-<div class="row">
-    <img src="~/Content/Images/Branding/OFFROAD GIRLS.jpg" class="img-responsive img-banner" alt="Off-road main" />
+
+<div class="container-fluid">
+    <div class="row">
+        <img src="~/Content/Images/Branding/OFFROAD GIRLS.jpg" class="img-responsive img-banner" alt="Off-road main" />
+    </div>
 </div>
 
 <div class="container main-menu container-transparent">
@@ -12,34 +15,42 @@
     {
         @Html.ActionLink("Dodaj album", "Create")
     }
-    <div class="row row-message">
-        Dziewczyny!<br />
-        Jeżeli macie ochotę na off-roadowe zdjęcia, czekamy na Wasze zgłoszenia.<br />
-        Gwarantujemy dobrą zabawę, możliwość spróbowania swoich sił w terenie i uwiecznienie tychże chwil w naszym obiektywie.<br />
+    <div class="container-fluid">
+        <div class="row row-message">
+            <div class="col-xs-12">
+                Dziewczyny!<br />
+                Jeżeli macie ochotę na off-roadowe zdjęcia, czekamy na Wasze zgłoszenia.<br />
+                Gwarantujemy dobrą zabawę, możliwość spróbowania swoich sił w terenie i uwiecznienie tychże chwil w naszym obiektywie.<br />
+            </div>
+        </div>
     </div>
 
     @foreach (var item in Model)
     {
         <div class="myArticle article-gallery">
-            <div class="row row-gallery-title">
-                <div class="col-sm-10 col-md-7 article-title gallery-title">
-                    <a href="@Url.Action("Index", "Media", new {articleID = item.ArticleID})">
-                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
-                    </a>
+            <div class="container-fluid">
+                <div class="row row-gallery-title">
+                    <div class="col-sm-10 col-md-7 article-title gallery-title">
+                        <a href="@Url.Action("Index", "Media", new {articleID = item.ArticleID})">
+                            <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                        </a>
+                    </div>
                 </div>
             </div>
             <h5>@Html.DisplayFor(modelItem => item.DateAdded)</h5>
             <p>@Html.DisplayFor(modelItem => item.Text)</p>
-            <ul class="row ul-gallery">
-                @for (int i = 0; i < item.Images.ToArray().Length && i < 4; i++)
-                {
-                    <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <a href="@Url.Action("Index", "Media", new {articleID = item.ArticleID})">
-                            <img class="img-thumbnail" src="@item.Images.ElementAt(i).MiniatureLink" alt="@item.Images.ElementAt(i).Name" />
-                        </a>
-                    </li>
-                }
-            </ul>
+            <div class="container-fluid">
+                <ul class="row ul-gallery">
+                    @for (int i = 0; i < item.Images.ToArray().Length && i < 4; i++)
+                    {
+                        <li class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <a href="@Url.Action("Index", "Media", new {articleID = item.ArticleID})">
+                                <img class="img-thumbnail" src="@item.Images.ElementAt(i).MiniatureLink" alt="@item.Images.ElementAt(i).Name" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
             <br />
             @if (Request.IsAuthenticated)
             {

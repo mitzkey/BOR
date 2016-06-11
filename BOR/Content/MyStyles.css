@@ -817,8 +817,6 @@ select {
 .row-message {
     background-color: #9cbce2;
     color: black;
-    margin-left: -50px;
-    margin-right: -50px;
     text-align: center;
     font-weight: bold;
     margin-bottom: 20px;
