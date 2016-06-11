@@ -21,13 +21,19 @@ namespace BOR.Controllers
         private BORcontext db = new BORcontext();
 
         // GET: Workshops
-        public ActionResult Index(string searchString, string voivodships, string currentFilter, int? page)
+        public ActionResult Index(string searchString, string voivodships, string currentFilter, int? page, int? categoryID)
         {
             Click("Warsztaty");
+
+            WorkshopsAndCategories model = new WorkshopsAndCategories();
 
             var workshops = from a in db.Articles
                             select a;
             workshops = workshops.Where(i => i.Type == "Workshop");
+
+            var categories = from a in db.Articles
+                             select a;
+            categories = categories.Where(i => i.Type == "WorkshopCategory");
 
             var voivodshipsQuery = from v in db.Voivodships
                                    orderby v.Name
@@ -51,6 +57,12 @@ namespace BOR.Controllers
                     || i.Www.Contains(searchString));
             }
 
+            //filtering category
+            if (categoryID != null)
+            {
+                workshops = workshops.Where(w => w.CategoryID == categoryID);
+            }
+
             //paging code
             if (searchString != null)
             {
@@ -61,10 +73,14 @@ namespace BOR.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = currentFilter;
+            ViewBag.CurrentCategory = categoryID;
             int pageSize = 5;
             int pageNumber = (page ?? 1);
+
+            model.Workshops = workshops.OrderByDescending(s => s.DateAdded).ToPagedList(pageNumber, pageSize);
+            model.Categories = categories.ToList();
             
-            return View(workshops.OrderByDescending(s => s.DateAdded).ToPagedList(pageNumber, pageSize));
+            return View(model);
         }
 
         // GET: Workshops/Create

@@ -1095,6 +1095,8 @@ div.text-container {
 
 .workshop-category-image {
     max-height: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #editor {

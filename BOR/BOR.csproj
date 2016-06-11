@@ -366,6 +366,7 @@
     <Compile Include="ViewModels\MediaVotingResults.cs" />
     <Compile Include="ViewModels\MediumData.cs" />
     <Compile Include="ViewModels\WorkshopComment.cs" />
+    <Compile Include="ViewModels\WorkshopsAndCategories.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\datadummy.txt" />

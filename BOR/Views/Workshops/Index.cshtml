@@ -1,5 +1,6 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<BOR.Models.Article>
+@using BOR.ViewModels;
+@model WorkshopsAndCategories
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -28,8 +29,24 @@
             <input type="submit" value="Szukaj" />
         </p>
     }*@
+    
+    <div class="myArticle workshop-article">
+        <div class="row">
+            @foreach (var item in Model.Categories)
+            {
+                <div class="col-xs-4 col-sm-2">
+                    <a href="@Url.Action("Index", new { categoryID = item.ArticleID})">
+                        <img class="center-block workshop-category-image img-responsive"
+                             src="@(item.Images.Count() > 0 ? item.Images.First().Link : "")"
+                             alt="@(item.Images.Count() > 0 ? item.Images.First().Link : "")"
+                             title="@item.Title">
+                    </a> 
+                </div>
+            }            
+        </div>
+    </div>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Workshops)
     {
 
         <div class="myArticle workshop-article">
@@ -104,6 +121,6 @@
             </div>
         </div>
     }
-    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+    Strona @(Model.Workshops.PageCount < Model.Workshops.PageNumber ? 0 : Model.Workshops.PageNumber) z @Model.Workshops.PageCount
+    @Html.PagedListPager(Model.Workshops, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter, categoryID = ViewBag.CurrentCategory }))
 </div>
