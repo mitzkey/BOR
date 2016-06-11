@@ -1107,3 +1107,8 @@ div.text-container {
 .url-description {
     font-size: x-small;
 }
+
+.img-thumbnail {
+    background-color: transparent;
+    border-color: transparent;
+}
