@@ -1133,3 +1133,6 @@ div.text-container {
     border-top: none;
 }
 
+.honeypot {
+    display: none;
+}

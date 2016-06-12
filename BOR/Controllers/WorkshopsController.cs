@@ -281,7 +281,9 @@ namespace BOR.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment(WorkshopComment model, int workshopID)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid &&
+                String.IsNullOrEmpty(model.Comment.Title) &&
+                String.IsNullOrEmpty(model.Comment.Email))
             {
                 Censor censor = new Censor();
                 model.Comment.Text = censor.CensorText(model.Comment.Text);
