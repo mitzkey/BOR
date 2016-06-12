@@ -2,6 +2,7 @@
 @using BOR.ViewModels;
 @model WorkshopsAndCategories
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@Scripts.Render("~/Scripts/jquery-2.0.3.js")
 
 @{
     ViewBag.Title = "Warsztaty";
@@ -20,17 +21,6 @@
             @Html.ActionLink("Dodaj warsztat", "Create")
         </p>
     }
-    @*@using (Html.BeginForm("Index", "Workshops", FormMethod.Get))
-    {
-        <p>
-            Szukaj: @Html.TextBox("searchString", ViewBag.CurrentFilter as String)
-            <label class="control-label col-md-2" for="VoivodshipID">Województwo:</label>
-            <div class="col-md-10">
-                @Html.DropDownList("voivodships", String.Empty)
-            </div>
-            <input type="submit" value="Szukaj" />
-        </p>
-    }*@
     
     <div class="myArticle workshop-article">
         <div class="row">
@@ -112,13 +102,16 @@
                             <br />
                             <span class="workshop-email">@Html.DisplayFor(modelItem => item.Email)</span>
                             <br />
-                            @Html.DisplayFor(modelItem => item.PhoneNo)
-                            <br />
-                            <a class="img-link" href="@Url.Action("Map", "Workshops", new { id = item.ArticleID })">
-                                <img class="" src="~/Content/Images/Common/Google-Maps-icon.png" alt="google-maps-icon" />
-                            </a>
+                            @Html.DisplayFor(modelItem => item.PhoneNo)                            
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a class="img-link" href="@Url.Action("Map", "Workshops", new { id = item.ArticleID })">
+                        <div class="map-canvas" id="map-canvas-@(item.ArticleID)"></div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -126,3 +119,63 @@
     Strona @(Model.Workshops.PageCount < Model.Workshops.PageNumber ? 0 : Model.Workshops.PageNumber) z @Model.Workshops.PageCount
     @Html.PagedListPager(Model.Workshops, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter, categoryID = ViewBag.CurrentCategory }))
 </div>
+
+@* google maps *@
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb7yEklMf8WzBusF4pykg_j-KmegWgMoI">
+</script>
+<script type="text/javascript">
+    @{
+        <text>
+            function initialize() {
+        </text>
+            foreach (var item in Model.Workshops) {
+                string googleMapsAddress = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    item.Street + "+" + item.HouseNumber + ",+" + item.City +
+                    "&key=AIzaSyDICsovbKs7qwN0r6rqaQTW0-vksuLUaKw";
+                var json = new WebClient().DownloadString(googleMapsAddress);
+                dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+                string lat = @data.results[0].geometry.location.lat;
+                string lng = @data.results[0].geometry.location.lng;
+                string modelTitle = !String.IsNullOrEmpty(item.Title) ? item.Title : "";
+                string title = modelTitle.Replace("'", " ");
+                <text>
+    
+                    var myLatLng@(item.ArticleID) = new google.maps.LatLng(@lat, @lng);
+
+                    var mapOptions@(item.ArticleID) = {
+                        center: myLatLng@(item.ArticleID),
+                        zoom: 17
+                    };
+
+                    var map@(item.ArticleID) = new google.maps.Map(document.getElementById('map-canvas-' + @item.ArticleID),
+                        mapOptions@(item.ArticleID));
+
+                    map@(item.ArticleID).setTilt(0);
+
+                    var markerTitle@(item.ArticleID) ="@title";
+                    var marker@(item.ArticleID) = new google.maps.Marker({
+                        title: markerTitle@(item.ArticleID),
+                        position: myLatLng@(item.ArticleID),
+                        map: map@(item.ArticleID)
+                    });
+                </text>
+            }
+        <text>
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        </text>
+    }
+</script>
+
+<script>
+    $(window).load(function() {
+        @foreach (var item in Model.Workshops) {
+    <text>
+        var map@(item.ArticleID) = document.getElementById('map-canvas-' + @item.ArticleID);
+        google.maps.event.trigger(map@(item.ArticleID), 'resize');
+        </text>
+        }
+    });
+</script>
+@* end of google maps *@

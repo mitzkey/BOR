@@ -560,6 +560,16 @@
     padding: 0;
 }
 
+.map-canvas {
+    min-width: 250px;
+    min-height: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+.gm-style img { max-width: none; }
+.gm-style label { width: auto; display: inline; }
+
 @media (min-width: 768px) {
     #map-canvas {
         min-height: 300px;
@@ -1122,3 +1132,4 @@ div.text-container {
 #th-top {
     border-top: none;
 }
+
