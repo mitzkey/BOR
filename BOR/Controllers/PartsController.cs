@@ -61,7 +61,11 @@ namespace BOR.Controllers
                 searchString = currentFilter;
             }
             ViewBag.CurrentFilter = currentFilter;
-            int pageSize = 5;
+            int pageSize = parts.Count();
+            if (categories != "OPONY")
+            {
+                pageSize = 15;
+            }
             int pageNumber = (page ?? 1);
 
             var viewModel = new ShopView();
