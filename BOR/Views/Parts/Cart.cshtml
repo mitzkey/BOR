@@ -35,7 +35,10 @@
         {
             <div class="row">
                 <div class="col-xs-6">
-                    @Model.articles.ElementAt(i).Title
+                    @(Model.articles.ElementAt(i).Title + 
+                    (String.IsNullOrEmpty(Model.articles.ElementAt(i).City) ? "" : ", Średnica: " + Model.articles.ElementAt(i).City) +
+                    (String.IsNullOrEmpty(Model.articles.ElementAt(i).Street) ? "" : ", Wymiar: " + Model.articles.ElementAt(i).Street) +
+                    (String.IsNullOrEmpty(Model.articles.ElementAt(i).Zipcode) ? "" : ", IC/CV: " + Model.articles.ElementAt(i).Zipcode))
                 </div>
                 <div class="col-xs-2">
                     @Model.articles.ElementAt(i).Longitude zł

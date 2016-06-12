@@ -1022,6 +1022,8 @@
     <Content Include="Views\WorkshopCategories\Delete.cshtml" />
     <Content Include="Views\WorkshopCategories\Edit.cshtml" />
     <Content Include="Views\WorkshopCategories\Index.cshtml" />
+    <Content Include="Views\Parts\TiresIndex.cshtml" />
+    <Content Include="Views\Parts\TiresCategoriesIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Elmah\" />

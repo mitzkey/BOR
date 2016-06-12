@@ -1,0 +1,111 @@
+﻿@using PagedList.Mvc;
+@model BOR.ViewModels.ShopView
+
+@{
+    ViewBag.Title = "Części";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <img src="~/Content/Images/Branding/SKLEP.jpg" class="img-responsive img-banner" alt="Off-road main" />
+    </div>
+</div>
+
+<div class="container main-menu">
+    @if (ViewBag.currentCategory != null)
+    {
+        <h4>@ViewBag.currentCategory</h4>
+    }
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj część", "Create")
+        </p>
+    }
+    @using (Html.BeginForm("AddToCart", "Parts", new { category = ViewBag.currentCategory }, FormMethod.Post, null))
+    {
+        <table class="table table-responsive">
+            <tr>
+                <th id="th-top">
+                    Nazwa
+                </th>
+                <th id="th-top">
+                    Średnica
+                </th>
+                <th id="th-top">
+                    Wymiar
+                </th>
+                <th id="th-top">
+                    IC/CV
+                </th>
+                <th id="th-top">
+                    Cena
+                </th>
+                <th id="th-top">
+                    Do koszyka
+                </th>
+                @if (Request.IsAuthenticated)
+                {
+                    <th id="th-top">
+                        (admin)
+                    </th>
+                }
+            </tr>
+            @foreach (var item in Model.Parts)
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Street)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zipcode)
+                    </td>
+                    <td>
+                        @(item.Longitude != null ? item.Longitude.ToString() : "-") zł
+                    </td>
+                    <td>
+                        @if (item.Longitude != null)
+                            {
+                            <input class="input-number" type="number" value="0" name="@item.ArticleID" min="0" />
+                            }
+                    </td>
+                    <td>
+                        @if (Request.IsAuthenticated)
+                            {
+                            <p>
+                                @Html.ActionLink("Edytuj", "Edit", new { id = item.ArticleID }) |
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.ArticleID })
+                            </p>
+                            }
+                    </td>
+                </tr>
+        }
+        </table>
+    }
+        @if (Model.Parts.Count() > 0)
+        {
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-9 col-xs-offset-3 col-sm-3 col-sm-offset-9 button-addToCart">
+                        <input type="submit" value="Dodaj do koszyka" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    
+    @{
+        var myPagedList = (PagedList.PagedList<BOR.Models.Article>)Model.Parts;
+    }
+    <br />
+    Strona @(myPagedList.PageCount < myPagedList.PageNumber ? 0 : myPagedList.PageNumber) z @myPagedList.PageCount
+    @Html.PagedListPager(myPagedList, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter, categories = ViewBag.currentCategory }))
+    <br />
+    <a href="javascript:history.back()">Powrót</a>
+</div>
+</div>

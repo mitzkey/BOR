@@ -1110,3 +1110,15 @@ div.text-container {
     background-color: transparent;
     border-color: transparent;
 }
+
+.table {
+    border-top: none;
+}
+
+.table-row-top > th {
+    border-top: none;
+}
+
+#th-top {
+    border-top: none;
+}

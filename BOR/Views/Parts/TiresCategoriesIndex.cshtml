@@ -1,0 +1,121 @@
+﻿@using PagedList.Mvc;
+@model BOR.ViewModels.ShopView
+
+@{
+    ViewBag.Title = "Części";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <img src="~/Content/Images/Branding/SKLEP.jpg" class="img-responsive img-banner" alt="Off-road main" />
+    </div>
+</div>
+
+<div class="container main-menu">
+    @if (ViewBag.currentCategory != null)
+    {
+        <h4>@ViewBag.currentCategory</h4>
+    }
+    @using (Html.BeginForm("AddToCart", "Parts", new { category = ViewBag.currentCategory }, FormMethod.Post, null))
+    {
+        
+            foreach (var item in Model.Categories)
+            {
+                <div class="myArticle">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    <a href="@Url.Action("Index", new { categories = item.Title})">
+                                        <img class="img-thumbnail img-responsive category-symbol" src="@(item.Images.Count() > 0 ? item.Images.First().MiniatureLink : "")"
+                                             alt="@(item.Images.Count() > 0 ? item.Images.First().Name : "")" />
+                                        @Html.DisplayFor(i => item.Title)
+                                        <br />
+                                        @Html.DisplayFor(i => item.Text)
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table">
+                                    <tr>
+                                        <th id="th-top">
+                                            Średnica
+                                        </th>
+                                        <th id="th-top">
+                                            Wymiar
+                                        </th>
+                                        <th id="th-top">
+                                            IC/CV
+                                        </th>
+                                        <th id="th-top">
+                                            Cena
+                                        </th>
+                                        <th id="th-top">
+                                            Do koszyka
+                                        </th>
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            <th id="th-top">
+                                                (admin)
+                                            </th>
+                                        }
+                                    </tr>
+                                    @foreach (var innerItem in Model.Parts.Where(i => i.CategoryID == item.ArticleID))
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => innerItem.City)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => innerItem.Street)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => innerItem.Zipcode)
+                                            </td>
+                                            <td>
+                                                @(innerItem.Longitude != null ? innerItem.Longitude.ToString() : "-") zł
+                                            </td>
+                                            <td>
+                                                @if (innerItem.Longitude != null)
+                                                {
+                                                    <input class="input-number" type="number" value="0" name="@innerItem.ArticleID" min="0" />
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (Request.IsAuthenticated)
+                                                {
+                                                    <p>
+                                                        @Html.ActionLink("Edytuj", "Edit", new { id = innerItem.ArticleID }) |
+                                                        @Html.ActionLink("Usuń", "Delete", new { id = innerItem.ArticleID })
+                                                    </p>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                                @if (Model.Parts.Where(i => i.CategoryID == item.ArticleID).Count() > 0)
+                                {
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-9 col-xs-offset-3 col-sm-3 col-sm-offset-9 button-addToCart">
+                                                <input type="submit" value="Dodaj do koszyka" class="btn btn-default" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+    }
+    @if (Request.IsAuthenticated)
+    {
+        <p>
+            @Html.ActionLink("Dodaj część", "Create")
+        </p>
+    }
+    <a href="javascript:history.back()">Powrót</a>
+</div>
+</div>

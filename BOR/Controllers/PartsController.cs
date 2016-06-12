@@ -23,6 +23,7 @@ namespace BOR.Controllers
         // GET: Parts
         public ActionResult Index(string searchString, string categories, string currentFilter, int? page)
         {
+            Article category = null;
             var parts = from a in db.Articles.Where(i => i.Type == "Part")
                             select a;
 
@@ -34,7 +35,7 @@ namespace BOR.Controllers
 
             if (!String.IsNullOrEmpty(categories))
             {
-                Article category = db.Articles.Where(a => a.Title == categories).SingleOrDefault();
+                category = db.Articles.Where(a => a.Title == categories).SingleOrDefault();
                 List<string> categoriesList = new List<string>();
                 fillSubcategoriesList(category, categoriesList);
 
@@ -77,15 +78,23 @@ namespace BOR.Controllers
             {
                 viewModel.Categories = db.Articles.Where(a => a.Type == "Category").ToList();
             }
+
             ViewBag.currentCategory = categories;
-            return View(viewModel);
 
-            //return View(workshops.OrderByDescending(s => s.DateAdded).ToPagedList(pageNumber, pageSize));
+            Article superiorCategory = category == null ? null : category.Category;
 
-            //var viewModel = new ShopView();
-            //viewModel.Parts = db.Articles.Where(a => a.Type == "Part").Include(a => a.Voivodship).OrderByDescending(a => a.DateAdded).ToList();
-            //viewModel.Shop = db.Articles.Where(a => a.Type == "Shop").Single();
-            //return View(viewModel);
+            if (categories == "OPONY")
+            {
+                return View("TiresCategoriesIndex", viewModel);
+            }
+            else if (superiorCategory != null && superiorCategory.Title == "OPONY")
+            {
+                return View("TiresIndex", viewModel);
+            }
+            else
+            {
+                return View(viewModel);
+            }
         }
 
         // GET: Parts/Details/5
