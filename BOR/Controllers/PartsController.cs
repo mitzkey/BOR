@@ -261,9 +261,10 @@ namespace BOR.Controllers
         {
             Cart cart = fillCart();
             SmtpClient smtpClient = new SmtpClient();
-            NetworkCredential basicCredential = new NetworkCredential("zamowienia@bornoffroad.pl", "1!Zamowienia");
+            Article data = db.Articles.Where(a => a.Type == "ZamowieniaData").SingleOrDefault();
+            NetworkCredential basicCredential = new NetworkCredential(data.Email, data.Zipcode);
             MailMessage message = new MailMessage();
-            MailAddress fromAddress = new MailAddress("zamowienia@bornoffroad.pl");
+            MailAddress fromAddress = new MailAddress(data.Email);
 
             smtpClient.Host = "smtp.webio.pl";
             smtpClient.Port = 587;
